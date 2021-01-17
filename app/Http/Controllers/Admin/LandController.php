@@ -38,7 +38,7 @@ class LandController extends Controller
      */
     public function store(Request $request,Land $land)
     {
-        return $request->all();
+
         $land->name = $request->input('name');
         $land->user_id = $request->input('userid');
         $land->update($request->all());
