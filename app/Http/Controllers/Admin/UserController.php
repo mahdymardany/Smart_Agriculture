@@ -6,10 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+//    public function __construct()
+//    {
+//        $this->middleware('role:super_admin', ['only' => ['create','show']]);
+//    }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +35,17 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        $roles = Auth::user()->getPermissionsViaRoles();
+        $permission[] = "";
+        foreach ($roles as $role){
+            $permission[] = $role->name;
+        }
+
+        if (array_search('create-users', $permission)){
+            return view('admin.users.create');
+        } else {
+            abort(404);
+        }
     }
 
     /**

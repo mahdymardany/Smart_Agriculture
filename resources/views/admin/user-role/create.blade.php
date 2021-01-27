@@ -1,7 +1,11 @@
 @extends('admin.master')
+
 @section('main-content')
+
+
     <section class="content">
         <div class="container">
+
         </div>
         <div class="row">
             <!-- left column -->
@@ -9,35 +13,34 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">ایجاد زمین</h3>
+                        <h3 class="box-title">ایجاد مقام</h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" action="{{route('lands.store')}}" method="POST">
+                    <form role="form" action="{{route('user-role.store')}}" method="POST">
                         @csrf
                         @include('admin.section.errors')
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="name">نام زمین</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="نام زمین">
-                            </div>
-                            <div class="form-group">
-                                <label for="user">نام کاربر</label>
-                                <select class="form-control chosen-select" style="width: 100%;" name="userid" id="user">
+                                <label for="permissions">کاربر</label>
+                                <select class="form-control chosen-select" name="name" data-placeholder="مجوز های مورد نظر را انتخاب کنید...">
                                     @foreach($users as $user)
-                                         <option value="{{ $user->id }}">{{$user->name}}</option>
+                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="mapid">نقشه</label>
-                                <div id="mapid"></div>
+                                <label for="permissions">نوع مقام</label>
+                                <select class="form-control chosen-select" name="role" data-placeholder="مجوز های مورد نظر را انتخاب کنید...">
+                                    @foreach($roles as $role)
+                                        <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            <input type="hidden" id="eventoutput" name="points">
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-success" id="btn-map">ثبت</button>
+                            <button type="submit" class="btn btn-success">ثبت</button>
                         </div>
                     </form>
                 </div>
@@ -45,13 +48,13 @@
             </div>
         </div>
     </section>
-@endsection
-@section('script')
-    <script src="{{ asset('js/chosen.js') }}"></script>
-    <script src="{{ asset('js/map.js') }}"></script>
+
 
 @endsection
+
+@section('script')
+    <script src="{{ asset('js/chosen.js') }}"></script>
+@endsection()
 @section('css')
-    <link rel="stylesheet" href="{{asset('css/chosen.css')}}">
-    <link rel="stylesheet" href="{{asset('css/map.css')}}">
-@endsection
+    <link rel="stylesheet" href="{{ asset('css/chosen.css') }}">
+@endsection()

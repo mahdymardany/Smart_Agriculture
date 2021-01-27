@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LandController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\UserRoleController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +41,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::group(['middleware' =>['auth', 'auth.admin']] , function (){
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('/users' , UserController::class);
+    Route::resource('/roles' , RoleController::class);
+    Route::resource('/user-role',UserRoleController::class);
     Route::get('/admin/chart', function (){
         return view('admin.chart.index');
     })->name('admin.chart');

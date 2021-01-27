@@ -30,10 +30,10 @@
                                 <input type="text" class="form-control" name="username" id="exampleInputEmail1" placeholder="نام کاربری">
                             </div>
                             <div class="form-group">
-                                <label>سطح دسترسی</label>
+                                <label>دسترسی به پنل :</label>
                                 <select class="form-control chosen-select" name="level" style="width: 100%;">
-                                    <option value="0">کاربر معمولی</option>
-                                    <option value="1">مدیر</option>
+                                    <option value="0">کاربران</option>
+                                    <option value="1">مدیریت</option>
                                 </select>
                             </div>
                             <div class="form-group">

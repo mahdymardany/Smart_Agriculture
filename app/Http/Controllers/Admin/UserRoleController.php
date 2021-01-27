@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Land;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
-class LandController extends Controller
+class UserRoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class LandController extends Controller
      */
     public function index()
     {
-        $lands = Land::all();
-        return view('admin.lands.index',compact('lands'));
+        $users = User::with('roles')->get();
+        return view('admin.user-role.index',compact('users'));
     }
 
     /**
@@ -27,22 +27,23 @@ class LandController extends Controller
      */
     public function create()
     {
-        $users=User::all();
-        return view('admin.lands.create',compact('users'));
+        $users = User::all();
+        $roles = Role::all();
+        return view('admin.user-role.create',compact(['users', 'roles']));
     }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,Land $land)
+    public function store(Request $request)
     {
-        $land->name = $request->input('name');
-        $land->user_id = $request->input('userid');
-        $land->points = $request->input('points');
-        $land->save();
-        return redirect(route('lands.index'));
+        $role = Role::find($request->role);
+        $user = User::find($request->name);
+        $user->assignRole($role);
+        return redirect(route('user-role.index'));
     }
 
     /**
@@ -62,11 +63,9 @@ class LandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Land $land)
+    public function edit($id)
     {
-        $users=User::all();
-        return view('admin.lands.edit', compact(['land','users']));
-
+        //
     }
 
     /**
@@ -76,11 +75,9 @@ class LandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Land $land)
+    public function update(Request $request, $id)
     {
-        $land->user_id = $request->input('userid');
-        $land->update($request->all());
-        return redirect(route('lands.index'));
+        //
     }
 
     /**
@@ -89,10 +86,8 @@ class LandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Land $land)
+    public function destroy($id)
     {
-        $land->delete();
-        return redirect(route('lands.index'));
+        //
     }
 }
-

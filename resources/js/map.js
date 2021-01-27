@@ -1,5 +1,6 @@
 import L from 'leaflet';
 import 'leaflet-measure';
+import 'leaflet-measure/dist/leaflet-measure.fa'
 import 'leaflet-contextmenu';
 import 'leaflet.fullscreen';
 
@@ -65,27 +66,44 @@ var _baseLayers = {
 
 L.control.layers(_baseLayers, null, {position: "bottomright"}).addTo(map);
 
-var polygon = L.polygon([
-    [51.509, -0.08],
-    [51.503, -0.06],
-    [51.51, -0.047]
-],{color:'red'}).addTo(map);
 
-var measureControl = new L.control.measure({
+var measureControl = L.control.measure({
     activeColor: '#db4a29',
     completedColor: '#9b2d14',
     primaryLengthUnit: 'meters',
     secondaryLengthUnit: 'kilometers',
     localization: 'fa',
+    popupOptions: { className: 'leaflet-measure-resultpopup', autoPanPadding: [10, 10] }
 }).addTo(map);
 
+map.on('measurestart', function(evt) {
+});
+
+map.on('measurefinish', function(evt) {
+    var points = document.getElementById('eventoutput').value = JSON.stringify(evt.points);
+    $(".leaflet-control-measure").toggle(function() {
+        map.off('click', layer.getFeatureInfo, layer);
+        map.off('click', popup);
+    });
+});
+$(".leaflet-control-measure").click(function() {
+    var oddClick = $(this).data("oddClick");
+    $(this).data("oddClick", !oddClick);
+    if (!oddClick) {
+        map.off('click', popup);
+    } else {
+        map.on('click', popup);
+    }
+});
 
 function WhatHere(e) {
     alert(e.latlng);
 }
+
 function Zoomin(e) {
     map.zoomIn();
 }
+
 function Zoomout(e) {
     map.zoomOut();
 }

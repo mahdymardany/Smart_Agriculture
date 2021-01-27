@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Land;
-use App\Models\User;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
-class LandController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class LandController extends Controller
      */
     public function index()
     {
-        $lands = Land::all();
-        return view('admin.lands.index',compact('lands'));
+        $roles = Role::all();
+        return view('admin.roles.index', compact('roles'));
     }
 
     /**
@@ -27,22 +27,22 @@ class LandController extends Controller
      */
     public function create()
     {
-        $users=User::all();
-        return view('admin.lands.create',compact('users'));
+        $permissions = Permission::all();
+        return view('admin.roles.create',compact('permissions'));
     }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,Land $land)
+    public function store(Request $request)
     {
-        $land->name = $request->input('name');
-        $land->user_id = $request->input('userid');
-        $land->points = $request->input('points');
-        $land->save();
-        return redirect(route('lands.index'));
+        $role = Role::create($request->all());
+//        $permissions = $request->permissions;
+        $role->permissions()->sync($request->input('permissions'));
+        return redirect(route('roles.index'));
     }
 
     /**
@@ -62,11 +62,10 @@ class LandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Land $land)
+    public function edit(Role $role)
     {
-        $users=User::all();
-        return view('admin.lands.edit', compact(['land','users']));
-
+        $permissions = Permission::all();
+        return view('admin.roles.edit',compact(['permissions','role']));
     }
 
     /**
@@ -76,11 +75,16 @@ class LandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Land $land)
+    public function update(Request $request, Role $role)
     {
-        $land->user_id = $request->input('userid');
-        $land->update($request->all());
-        return redirect(route('lands.index'));
+       $request->validate(([
+            'name' => ['required'],
+            'permissions' => ['required'],
+        ]));
+        $role->update($request->all());
+        $role->permissions()->sync($request->input('permissions'));
+
+        return redirect(route('roles.index'));
     }
 
     /**
@@ -89,10 +93,9 @@ class LandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Land $land)
+    public function destroy(Role $role)
     {
-        $land->delete();
-        return redirect(route('lands.index'));
+        $role->delete();
+        return redirect(route('roles.index'));
     }
 }
-

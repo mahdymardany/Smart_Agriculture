@@ -33,8 +33,8 @@
                             <div class="form-group">
                                 <label for="level">سطح دسترسی</label>
                                 <select class="form-control chosen-select" name="level" style="width: 100%;" id="level">
-                                    <option value="0" @if($user->level == '0') selected="selected" @endif>کاربر معمولی</option>
-                                    <option value="1" @if($user->level == '1') selected="selected" @endif>مدیر</option>
+                                    <option value="0" @if($user->level == '0') selected="selected" @endif>کاربران</option>
+                                    <option value="1" @if($user->level == '1') selected="selected" @endif>مدیریت</option>
                                 </select>
                             </div>
                             <div class="form-group">
