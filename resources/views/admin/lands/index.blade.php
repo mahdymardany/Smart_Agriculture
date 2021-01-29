@@ -47,8 +47,9 @@
                                             {{ csrf_field() }}
 
                                             <div class="btn-group btn-group-xs">
-                                                <a href="{{ route('lands.edit', ['land' => $land->id]) }}" class="btn btn-primary">ویرایش</a>
-                                                <button type="submit" class="btn btn-danger">حذف</button>
+                                                <a href="{{ route('lands.edit', ['land' => $land->id]) }}" class="btn btn-primary"><i class="fa fa-fw fa-pencil"></i></a>
+                                                <a href="{{ route('lands.show', ['land' => $land->id]) }}" class="btn btn-success"><i class="fa fa-fw fa-eye"></i></a>
+                                                <button type="submit" class="btn btn-danger"><i class="fa fa-fw fa-trash-o"></i></button>
                                                 {{--<a type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-default">حذف</a>--}}
                                                 {{--<div class="modal fade" id="modal-default">--}}
                                                 {{--<div class="modal-dialog">--}}

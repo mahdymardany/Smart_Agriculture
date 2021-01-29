@@ -16,6 +16,9 @@ mix
     .js('resources/js/highcharts.js', 'public/js')
     .js('resources/js/chosen.js', 'public/js')
     .js('resources/js/map.js', 'public/js')
+    .js('resources/js/show-map.js', 'public/js')
+    .js('resources/js/sweetalert2.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .postCss('resources/css/chosen.css', 'public/css')
+    .postCss('resources/css/sweetalert2.css', 'public/css')
     .postCss('resources/css/map.css', 'public/css');

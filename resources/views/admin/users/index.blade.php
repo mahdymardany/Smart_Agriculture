@@ -43,13 +43,41 @@
                                     <td>{{ $user->username }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>
-                                        <form action="{{ route('users.destroy' , ['user'=> $user->id]) }}" method="post">
-                                            {{ method_field('delete') }}
-                                            {{ csrf_field() }}
+                                        {{--<form action="{{ route('users.destroy' , ['user'=> $user->id]) }}" method="post">--}}
+                                            {{--{{ method_field('delete') }}--}}
+                                            {{--{{ csrf_field() }}--}}
 
                                             <div class="btn-group btn-group-xs">
                                                 <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-primary">ویرایش</a>
-                                                <button type="submit" class="btn btn-danger">حذف</button>
+                                                {{--<button type="submit" class="btn btn-danger">حذف</button>--}}
+                                                <button class="btn btn-danger" data-userid={{$user->id}} data-toggle="modal" data-target="#delete">Delete</button>
+
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                <h4 class="modal-title text-center" id="myModalLabel">تایید حذف</h4>
+                                                            </div>
+                                                            <form action="{{route('users.destroy','test')}}" method="post">
+                                                                {{method_field('delete')}}
+                                                                {{csrf_field()}}
+                                                                <div class="modal-body">
+                                                                    <p class="text-center">
+                                                                        آیا از حذف این کاربر اطمینان دارین؟
+                                                                    </p>
+                                                                    <input type="hidden" name="user_id" id="user_id" value="">
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">خیر، منصرف شدم</button>
+                                                                    <button type="submit" class="btn btn-danger">بله، حذف شود</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 {{--<a type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-default">حذف</a>--}}
                                                 {{--<div class="modal fade" id="modal-default">--}}
                                                     {{--<div class="modal-dialog">--}}
@@ -74,7 +102,7 @@
                                             </div>
 
                                             <!-- /.modal -->
-                                        </form>
+                                        {{--</form>--}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -97,54 +125,60 @@
         <!-- /.row -->
     </section>
     <!-- /.content -->
-    @section('script')
-        <!-- DataTables -->
-        <script src="/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-        <script src="/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-
-        <script>
-            {{--$(document).ready(function() {--}}
-                {{--$('#example').DataTable({--}}
-                    {{--"ajax": "{{ route('api.index') }}",--}}
-                    {{--"columns": [--}}
-                        {{--// { "data": "id" },--}}
-                        {{--{ "data": "name" },--}}
-                        {{--{ "data": "username" },--}}
-                    {{--],--}}
-                {{--});--}}
-            {{--});--}}
-            $(document).ready(function() {
-                $('#example').DataTable({
-                    deferRender:    true,
-                    scrollY:        450,
-                    scrollCollapse: true,
-                    scroller:       true,
-                    "language": {
-                        "lengthMenu": "تعداد سطرها  _MENU_",
-                        "zeroRecords": "نتیجه ای یافت نشد",
-                        "info": "نمایش صفحه _PAGE_ از _PAGES_",
-                        "infoEmpty": "موردی وجود ندارد",
-                        "infoFiltered": "(filtered from _MAX_ total records)",
-                        "search": "جست و جو : ",
-                        paginate: {
-                            first:    '«',
-                            previous: '‹',
-                            next:     '›',
-                            last:     '»',
-                        },
-                        aria: {
-                            paginate: {
-                                first:    'صفحه نخست',
-                                previous: 'قبلی',
-                                next:     'بعدی',
-                                last:     'صفحه آخر',
-                            }
-                        }
-
-                    }
-                });
-            });
-        </script>
-    @endsection
-
 @endsection
+@section('script')
+    <!-- DataTables -->
+    <script src="/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    {{--<script src="{{ asset('js/sweetalert2.js') }}"></script>--}}
+    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>--}}
+
+    <script type="text/javascript">
+        $('#delete').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var user_id = button.data('userid');
+            var modal = $(this);
+            modal.find('.modal-body #user_id').val(user_id);
+        })
+
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                deferRender:    true,
+                scrollY:        450,
+                scrollCollapse: true,
+                scroller:       true,
+                "language": {
+                    "lengthMenu": "تعداد سطرها  _MENU_",
+                    "zeroRecords": "نتیجه ای یافت نشد",
+                    "info": "نمایش صفحه _PAGE_ از _PAGES_",
+                    "infoEmpty": "موردی وجود ندارد",
+                    "infoFiltered": "(filtered from _MAX_ total records)",
+                    "search": "جست و جو : ",
+                    paginate: {
+                        first:    '«',
+                        previous: '‹',
+                        next:     '›',
+                        last:     '»',
+                    },
+                    aria: {
+                        paginate: {
+                            first:    'صفحه نخست',
+                            previous: 'قبلی',
+                            next:     'بعدی',
+                            last:     'صفحه آخر',
+                        }
+                    }
+
+                }
+            });
+        });
+    </script>
+@endsection
+
+@section('css')
+{{--    <link rel="stylesheet" href="{{asset('css/sweetalert2.css')}}">--}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+<meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection()
