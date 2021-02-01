@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LandController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SensorController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserRoleController;
 use App\Http\Controllers\HomeController;
@@ -47,6 +48,7 @@ Route::group(['middleware' =>['auth', 'auth.admin']] , function (){
         return view('admin.chart.index');
     })->name('admin.chart');
     Route::resource('/lands' , LandController::class);
+    Route::resource('/sensors',SensorController::class);
 });
 
 

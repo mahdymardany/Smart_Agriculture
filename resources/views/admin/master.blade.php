@@ -378,6 +378,8 @@
                         <li><a href="{{ route('lands.index') }}"><i class="fa fa-users"></i>لیست زمین</a></li>
                     </ul>
                 </li>
+                <li><a href="{{ route('sensors.index') }}"><i class="fa fa-fw fa-dot-circle-o"></i> <span>مدیریت سنسور ها</span></a></li>
+
             </ul>
         </section>
         <!-- /.sidebar -->

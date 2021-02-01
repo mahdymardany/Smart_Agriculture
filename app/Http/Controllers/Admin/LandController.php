@@ -92,6 +92,9 @@ class LandController extends Controller
     public function destroy(Land $land)
     {
         $land->delete();
+        foreach ($land->sensors as $sensor){
+            $sensor->delete();
+        }
         return redirect(route('lands.index'));
     }
 }

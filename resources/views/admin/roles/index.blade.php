@@ -41,7 +41,7 @@
                             @foreach($roles as $role)
                                 <tr>
                                     <td>{{ $role->name }}</td>
-                                    @php $collection = $role->permissions()@endphp
+                                    @php $collection = $role->permissions()->pluck('name')@endphp
                                     <td>{{ $collection }}</td>
                                     <td>
                                         <form action="{{ route('roles.destroy' , ['role'=> $role->id]) }}" method="post">

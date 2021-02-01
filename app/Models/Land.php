@@ -18,4 +18,9 @@ class Land extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function sensors()
+    {
+        return $this->hasMany(Sensor::class);
+    }
 }

@@ -35,17 +35,19 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Auth::user()->getPermissionsViaRoles();
-        $permission[] = "";
-        foreach ($roles as $role){
-            $permission[] = $role->name;
-        }
+//        $roles = Auth::user()->getPermissionsViaRoles();
+//        $permission[] = "";
+//        foreach ($roles as $role){
+//            $permission[] = $role->name;
+//        }
+//
+//        if (array_search('create-users', $permission)){
+//            return view('admin.users.create');
+//        } else {
+//            abort(404);
+//        }
 
-        if (array_search('create-users', $permission)){
-            return view('admin.users.create');
-        } else {
-            abort(404);
-        }
+        return view('admin.users.create');
     }
 
     /**

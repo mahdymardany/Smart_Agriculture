@@ -147,6 +147,8 @@ return array(
         'images' => 'تصویر',
         'permission_id' => 'عنوان مقام',
         'label' => 'توضیحات',
-        'comment' => 'کامنت'
+        'comment' => 'کامنت',
+        'serial' => 'سریال',
+        'land_id' => 'زمین'
     ),
 );

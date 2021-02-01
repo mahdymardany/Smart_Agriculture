@@ -15098,21 +15098,11 @@ var measureControl = leaflet__WEBPACK_IMPORTED_MODULE_0___default.a.control.meas
 }).addTo(map);
 map.on('measurestart', function (evt) {});
 map.on('measurefinish', function (evt) {
-  var points = document.getElementById('eventoutput').value = JSON.stringify([evt.points, evt.areaDisplay]);
+  var points = document.getElementById('eventoutput').value = JSON.stringify([evt.points]);
   $(".leaflet-control-measure").toggle(function () {
     map.off('click', layer.getFeatureInfo, layer);
     map.off('click', popup);
   });
-});
-$(".leaflet-control-measure").click(function () {
-  var oddClick = $(this).data("oddClick");
-  $(this).data("oddClick", !oddClick);
-
-  if (!oddClick) {
-    map.off('click', popup);
-  } else {
-    map.on('click', popup);
-  }
 });
 
 function WhatHere(e) {
