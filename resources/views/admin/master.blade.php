@@ -343,10 +343,9 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        @can('create-users')
-                            <li><a href="{{ route('users.create') }}"><i class="fa fa-plus"></i>ایجاد کاربر</a></li>
-                        @endcan
+                        <li><a href="{{ route('users.create') }}"><i class="fa fa-plus"></i>ایجاد کاربر</a></li>
                         <li><a href="{{ route('users.index') }}"><i class="fa fa-users"></i>لیست کاربران</a></li>
+                        <li><a href="{{ route('users.verify') }}"><i class="fa fa-users"></i>  لیست کاربران تایید نشده</a></li>
                     </ul>
                 </li>
                 <li><a href="{{ route('admin.chart') }}"><i class="fa fa-line-chart"></i> <span>نمودار</span></a></li>
@@ -360,8 +359,8 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{ route('roles.index') }}"><i class="fa fa-expeditedssl"></i>مدیریت نقش ها</a></li>
-                        <li><a href="{{ route('user-role.index') }}"><i class="fa fa-users"></i>نقش کاربران</a></li>
+                        <li><a href="{{route('roles.index')}}"><i class="fa fa-expeditedssl"></i>مدیریت نقش ها</a></li>
+                        <li><a href="{{ route('users-role.index') }}"><i class="fa fa-users"></i>نقش کاربران</a></li>
                     </ul>
                 </li>
             </ul>

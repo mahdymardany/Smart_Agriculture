@@ -1,11 +1,7 @@
 @extends('admin.master')
-
 @section('main-content')
-
-
     <section class="content">
         <div class="container">
-
         </div>
         <div class="row">
             <!-- left column -->
@@ -13,7 +9,7 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">ایجاد مقام</h3>
+                        <h3 class="box-title">ایجاد سنسور</h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
@@ -22,21 +18,21 @@
                         @include('admin.section.errors')
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="name">نام مقام</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="نام مقام...">
+                                <label for="role">نام نقش</label>
+                                <input type="text" class="form-control" name="name" id="role" placeholder="نام نقش">
                             </div>
                             <div class="form-group">
-                                <label for="permissions">مجوز ها</label>
-                                <select class="form-control chosen-select" name="permissions[]"  multiple data-placeholder="مجوز های مورد نظر را انتخاب کنید...">
+                                <label for="permission">مجوز ها</label>
+                                <select class="form-control chosen-select" multiple style="width: 100%;" name="permissions[]" id="permission">
                                     @foreach($permissions as $permission)
-                                        <option value="{{ $permission->id }}">{{ $permission->name }}</option>
+                                        <option value="{{ $permission->id }}"> {{$permission->label}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-success">ثبت</button>
+                            <button type="submit" class="btn btn-success" id="btn-map">ثبت</button>
                         </div>
                     </form>
                 </div>
@@ -44,13 +40,10 @@
             </div>
         </div>
     </section>
-
-
 @endsection
-
 @section('script')
     <script src="{{ asset('js/chosen.js') }}"></script>
-@endsection()
+@endsection
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/chosen.css') }}">
-@endsection()
+    <link rel="stylesheet" href="{{asset('css/chosen.css')}}">
+@endsection

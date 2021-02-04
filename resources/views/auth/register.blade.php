@@ -30,6 +30,14 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition register-page">
+@if($errors->any())
+    {{--div.alert.alert-danger + tab--}}
+    <div class="alert alert-danger">
+        @foreach($errors->all() as $error)
+            {{$error}}<br/>
+        @endforeach
+    </div>
+@endif
 <div class="register-box">
     <div class="register-logo">
         <a href="../../admin/index2.html"><b>ثبت نام در سایت</b></a>
@@ -38,46 +46,38 @@
     <div class="register-box-body">
         <p class="login-box-msg">ثبت نام کاربر جدید</p>
 
-        <form action="../../admin/index.html" method="post">
+        <form action="{{ route('user.register') }}" method="post">
+            @csrf
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" placeholder="نام و نام خانوادگی">
+                <input type="text" class="form-control" placeholder="نام و نام خانوادگی" name="name">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" placeholder="ایمیل">
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                <input type="text" class="form-control" placeholder="نام کاربری" name="username">
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="رمز عبور">
+                <input type="password" class="form-control" placeholder="رمز عبور" name="password">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="تکرار رمز عبور">
+                <input type="password" name="password_confirmation" class="form-control" placeholder="تکرار رمز عبور">
                 <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
             </div>
+            <!-- /.col -->
             <div class="row">
-                <div class="col-xs-12">
-                    <div class="checkbox icheck">
-                        <label>
-                            <input type="checkbox"> من <a href="#">قوانین و شرایط</a> را قبول میکنم.
-                        </label>
-                    </div>
-                </div>
-                <!-- /.col -->
                 <div class="col-xs-12">
                     <button type="submit" class="btn btn-primary btn-block btn-flat">ثبت نام</button>
                 </div>
-                <!-- /.col -->
             </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <a href="{{route('login')}}" class="btn btn-danger btn-block btn-flat" style="margin-top: 5px">{{ __('من قبلا ثبت نام کرده ام') }}</a>
+                </div>
+            </div>
+
+            <!-- /.col -->
         </form>
-
-        <div class="social-auth-links text-center">
-            <p>- یا -</p>
-            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> ثبت نام با فیسبوک</a>
-            <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> ثبت نام با گوگل</a>
-        </div>
-
-        <a href="login.html" class="text-center">من قبلا ثبت نام کرده ام</a>
     </div>
     <!-- /.form-box -->
 </div>

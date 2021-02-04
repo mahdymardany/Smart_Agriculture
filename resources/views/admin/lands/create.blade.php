@@ -23,7 +23,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="user">نام کاربر</label>
-                                <select class="form-control chosen-select" style="width: 100%;" name="userid" id="user">
+                                <select class="form-control chosen-select" style="width: 100%;" name="user_id" id="user">
                                     @foreach($users as $user)
                                          <option value="{{ $user->id }}">{{$user->name}}</option>
                                     @endforeach

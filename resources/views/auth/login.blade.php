@@ -64,6 +64,14 @@
                 </div>
                 <!-- /.col -->
             </div>
+
+            <div class="row">
+                <!-- /.col -->
+                <div class="col-xs-12">
+                    <a href="{{route('register')}}" class="btn btn-danger btn-block btn-flat" style="margin-top: 5px">{{ __('ثبت نام') }}</a>
+                </div>
+                <!-- /.col -->
+            </div>
         </form>
 
 

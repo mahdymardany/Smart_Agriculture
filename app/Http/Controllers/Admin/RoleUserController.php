@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Permission;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class RoleController extends Controller
+class RoleUserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,9 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles=Role::with('permissions')->get();
-        return view('admin.roles.index',compact('roles'));
+        $users = User::with('roles')->first();
+        return $users;
+        return view('admin.role-user.index', compact('users'));
     }
 
     /**
@@ -27,24 +28,24 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permissions=Permission::all();
-        return view('admin.roles.create', compact('permissions'));
+        $users = User::all();
+        $roles = Role::all();
+        return view('admin.role-user.create',compact(['users','roles']));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param User $user
+     * @return void
      */
-    public function store(Request $request,role $role)
+    public function store(Request $request)
     {
-        $role->name = $request->input('name');
-        //return $request;
-        $role->save();
-        $role->permissions()->sync($request->input('permissions'));
-        return redirect(route('roles.index'));
+        User::find($request->input('user_id'))->roles()->sync($request->input('role_id'));
+        return redirect(route('users-role.index'));
     }
+
     /**
      * Display the specified resource.
      *
@@ -62,10 +63,10 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $role)
+    public function edit(User $user)
     {
-        $permissions=Permission::all();
-        return view('admin.roles.edit', compact('role','permissions'));
+        $roles = Role::all();
+        return view('admin.role-user.edit',compact(['user', 'roles']));
     }
 
     /**
@@ -75,10 +76,10 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Role $role)
+    public function update(Request $request, User $user)
     {
-        $role->permissions()->sync($request->input('permissions'));
-        return redirect(route('roles.index'));
+        $user->roles()->sync($request->input('role_id'));
+        return redirect(route('users-role.index'));
     }
 
     /**
@@ -87,10 +88,9 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role)
+    public function destroy(User $user)
     {
-        $role->delete();
-
+        $user->roles()->detach();
         return back();
     }
 }

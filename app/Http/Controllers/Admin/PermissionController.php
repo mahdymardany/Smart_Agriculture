@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 
-class UserRoleController extends Controller
+class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +14,7 @@ class UserRoleController extends Controller
      */
     public function index()
     {
-        $users = User::with('roles')->get();
-        return view('admin.user-role.index',compact('users'));
+        //
     }
 
     /**
@@ -27,9 +24,7 @@ class UserRoleController extends Controller
      */
     public function create()
     {
-        $users = User::all();
-        $roles = Role::all();
-        return view('admin.user-role.create',compact(['users', 'roles']));
+        //
     }
 
     /**
@@ -40,10 +35,7 @@ class UserRoleController extends Controller
      */
     public function store(Request $request)
     {
-        $role = Role::find($request->role);
-        $user = User::find($request->name);
-        $user->assignRole($role);
-        return redirect(route('user-role.index'));
+        //
     }
 
     /**

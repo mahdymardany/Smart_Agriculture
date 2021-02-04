@@ -13,35 +13,31 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">ایجاد مقام</h3>
+                        <h3 class="box-title">ویرایش نقش کاربر</h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" action="{{ route('roles.update' , ['role' => $role->id]) }}" method="post">
+                    <form role="form" action="{{ route('users-role.update' , ['user' => $user->id]) }}" method="post">
                         @csrf
-                        @method('PATCH')
                         {{ method_field('PATCH') }}
                         @include('admin.section.errors')
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="name">نام مقام</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="نام مقام..."  value="{{ $role->name }}">
+                                <h4> کاربر : {{ $user->username }} </h4>
+                                <input type="hidden" value="{{ $user->id }}">
                             </div>
                             <div class="form-group">
-{{--                                @php $collection = $role->permissions; $plucked = $collection->pluck('name'); dd($plucked); @endphp--}}
-                                <label for="permissions">مجوز ها</label>
-                                <select class="form-control chosen-select" name="permissions[]"  multiple data-placeholder="مجوز های مورد نظر را انتخاب کنید...">
-                                    @foreach($permissions as $permission)
-                                        <option value="{{ $permission->id }}" {{ in_array($permission->id , $role->permissions()->pluck('id')->toArray()) ? 'selected' : '' }}>
-                                            {{ $permission->name }}
-                                        </option>
+                                <label>نقش ها</label>
+                                <select class="form-control chosen-select" multiple style="width: 100%;" name="role_id[]">
+                                    @foreach($roles as $role)
+                                        <option value="{{ $role->id }}" {{ in_array($role->id , $user->roles()->pluck('id')) ? 'selected' : '' }}>{{$role->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-success">ثبت</button>
+                            <button type="submit" class="btn btn-success">بروزرسانی</button>
                         </div>
                     </form>
                 </div>
@@ -49,13 +45,10 @@
             </div>
         </div>
     </section>
-
-
 @endsection
-
 @section('script')
     <script src="{{ asset('js/chosen.js') }}"></script>
 @endsection()
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/chosen.css') }}">
-@endsection()
+@endsection

@@ -6,12 +6,10 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -21,9 +19,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'username',
-        'is_superuser',
-        'is_staff',
-        'email',
+        'level',
+        'status',
         'password',
     ];
 
@@ -46,18 +43,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function isSuperUser()
+    public function Status()
     {
-        return $this->is_superuser;
-    }
-
-    public function isStaff()
-    {
-        return $this->is_staff;
+        return $this->status;
     }
 
     public function Level()
     {
         return $this->level;
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function hasRole($roles)
+    {
+        return !! $roles->intersect($this->roles)->all();
+    }
+    
+    public function hasPermission($permission)
+    {
+        return $this->hasRole($permission->roles);
     }
 }

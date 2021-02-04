@@ -3,12 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreteLandRequest;
 use Illuminate\Http\Request;
 use App\Models\Land;
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 
 class LandController extends Controller
 {
+
+    public function __construct()
+    {
+//        $this->middleware('can:creatse-land', ['only' => ['create']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,8 +35,11 @@ class LandController extends Controller
      */
     public function create()
     {
-        $users=User::all();
-        return view('admin.lands.create',compact('users'));
+        if (Gate::allows('create-land')){
+            $users=User::all();
+            return view('admin.lands.create',compact('users'));
+        }
+        abort(404);
     }
     /**
      * Store a newly created resource in storage.
@@ -36,10 +47,10 @@ class LandController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,Land $land)
+    public function store(CreteLandRequest $request,Land $land)
     {
         $land->name = $request->input('name');
-        $land->user_id = $request->input('userid');
+        $land->user_id = $request->input('user_id');
         $land->points = $request->input('points');
         $land->save();
         return redirect(route('lands.index'));

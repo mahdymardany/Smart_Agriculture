@@ -51,4 +51,12 @@ class LoginController extends Controller
         auth()->logout();
         return redirect(route('login'));
     }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->status == 0) {
+            $this->logout($request);
+            return redirect()->back();
+        }
+    }
 }

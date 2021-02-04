@@ -4,11 +4,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            لیست کاربران
+            نقش کاربران
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i> داشبورد</a></li>
-            <li><a href="{{route('roles.index')}}">کاربران</a></li>
+            <li><a href="{{route('users.index')}}">نقش کاربران</a></li>
         </ol>
     </section>
 
@@ -18,9 +18,9 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-                        <h1 class="box-title">کاربران</h1>
+                        <h1 class="box-title">سنسور ها</h1>
                         <div class="box-tools pull-right">
-                            <a href="{{ route('user-role.create') }}" class="btn btn-app" style="background-color: #89ffae">
+                            <a href="{{ route('users-role.create') }}" class="btn btn-app" style="background-color: #89ffae">
                                 <i class="fa fa-plus"></i> ایجاد مقام
                             </a>
                         </div>
@@ -33,23 +33,27 @@
                             <thead>
                             <tr>
                                 <th>کاربر</th>
-                                <th>مقام</th>
-                                <th>ویرایش</th>
+                                <th>نقش ها</th>
+                                <th>عملیات</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($users as $user)
                                 <tr>
-                                    <td>{{ $user->name }}</td>
-                                    @php  $collection = $user->roles()->pluck('name');@endphp
-                                    <td>{{ $collection }}</td>
+                                    @if(count($user->roles))
+                                    <td> {{ $user->username }} </td>
                                     <td>
-                                        <form action="{{ route('user-role.destroy' , ['user_role'=> $user->id]) }}" method="post">
+                                            @foreach($user->roles as $role)
+                                                <span class="label" style="background-color: #00bcd4; color: #ffffff;">{{ $role->name }}</span>
+                                            @endforeach
+                                    </td>
+
+                                    <td>
+                                        <form action="{{ route('users-role.destroy' , ['user'=> $user->id]) }}" method="post">
                                             {{ method_field('delete') }}
                                             {{ csrf_field() }}
-
                                             <div class="btn-group btn-group-xs">
-                                                <a href="{{ route('user-role.edit', ['user_role' => $user->id]) }}" class="btn btn-primary">ویرایش</a>
+                                                <a href="{{ route('users-role.edit', ['user' => $user->id]) }}" class="btn btn-primary">ویرایش</a>
                                                 <button type="submit" class="btn btn-danger">حذف</button>
                                                 {{--<a type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-default">حذف</a>--}}
                                                 {{--<div class="modal fade" id="modal-default">--}}
@@ -78,6 +82,7 @@
                                         </form>
                                     </td>
                                 </tr>
+                                @endif
                             @endforeach
                             </tbody>
                             {{--<tfoot>--}}

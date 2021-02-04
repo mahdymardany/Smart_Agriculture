@@ -16,10 +16,14 @@ class AdminAuthenticated
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->user()->Level()){
-            return $next($request);
-        }else{
-            return redirect('/user/dashboard');
+        if($request->user()->status)
+        {
+            if ($request->user()->Level()){
+                return $next($request);
+            }else{
+                return redirect('/user/dashboard');
+            }
         }
+        return redirect('login');
     }
 }

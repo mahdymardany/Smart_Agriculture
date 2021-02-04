@@ -18,6 +18,7 @@ class CreateSensorsTable extends Migration
             $table->string('serial')->unique();
             $table->bigInteger('land_id')->unsigned();
             $table->foreign('land_id')->references('id')->on('lands')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

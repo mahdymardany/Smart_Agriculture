@@ -3,11 +3,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            لیست نقش ها
+            لیست کاربران
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i> داشبورد</a></li>
-            <li><a href="{{route('roles.index')}}">سنسور ها</a></li>
+            <li><a href="{{route('users.index')}}">کاربران</a></li>
         </ol>
     </section>
 
@@ -17,12 +17,13 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-                        <h1 class="box-title">نقش ها</h1>
+                        <h1 class="box-title">کاربران</h1>
                         <div class="box-tools pull-right">
-                            <a href="{{ route('roles.create') }}" class="btn btn-app" style="background-color: #89ffae">
-                                <i class="fa fa-plus"></i> ایجاد نقش
-                            </a>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                         </div>
+
                     </div>
 
                     <!-- /.box-header -->
@@ -30,52 +31,54 @@
                         <table id="example" class="table table-bordered table-striped display">
                             <thead>
                             <tr>
-                                <th>نقش </th>
-                                <th>مجوز</th>
-                                <th>عملیات</th>
+                                <th>نام کاربری</th>
+                                <th>نام و نام خانوادگی</th>
+                                <th>ویرایش</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($roles as $role)
+                            @foreach($users as $user)
                                 <tr>
-                                    <td>{{ $role->name }}</td>
+                                    <td>{{ $user->username }}</td>
+                                    <td>{{ $user->name }}</td>
                                     <td>
-                                        @foreach($role->permissions as $permission)
-                                            <span class="label" style="background-color: #00bcd4; color: #fff" >{{ $permission->label }}</span>
-                                        @endforeach
-                                    </td>
-                                    <td>
-                                        <form action="{{ route('roles.destroy' , ['role'=> $role->id]) }}" method="post">
-                                            {{ method_field('delete') }}
-                                            {{ csrf_field() }}
-                                            <div class="btn-group btn-group-xs">
-                                                <a href="{{ route('roles.edit', ['role' => $role->id]) }}" class="btn btn-primary">ویرایش</a>
-                                                <button type="submit" class="btn btn-danger">حذف</button>
-                                                {{--<a type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-default">حذف</a>--}}
-                                                {{--<div class="modal fade" id="modal-default">--}}
-                                                {{--<div class="modal-dialog">--}}
-                                                {{--<div class="modal-content">--}}
-                                                {{--<div class="modal-header">--}}
-                                                {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-                                                {{--<span aria-hidden="true">&times;</span></button>--}}
-                                                {{--<h4 class="modal-title">انجام عملیات</h4>--}}
-                                                {{--</div>--}}
-                                                {{--<div class="modal-body">--}}
-                                                {{--<p>آیا میخواهید این کاربر را حذف کنید؟</p>--}}
-                                                {{--</div>--}}
-                                                {{--<div class="modal-footer">--}}
-                                                {{--<button type="button" class="btn btn-default pull-left" data-dismiss="modal">انصراف</button>--}}
-                                                {{--<button type="submit" class="btn btn-danger">حذف</button>--}}
-                                                {{--</div>--}}
-                                                {{--</div>--}}
-                                                {{--<!-- /.modal-content -->--}}
-                                                {{--</div>--}}
-                                                {{--<!-- /.modal-dialog -->--}}
-                                                {{--</div>--}}
-                                            </div>
+                                        <div class="btn-group btn-group-xs">
 
-                                            <!-- /.modal -->
-                                        </form>
+                                            <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-primary">ویرایش</a>
+                                            <form action="{{ route('users.verified' , ['user'=> $user->id]) }}" method="post">
+                                                {{ csrf_field() }}
+                                                {{ method_field('put') }}
+                                                <button type="submit" class="btn btn-success">تایید</button>
+                                            </form>
+                                            <form action="{{ route('users.destroy' , ['user'=> $user->id]) }}" method="post">
+                                                {{ csrf_field() }}
+                                                {{ method_field('delete') }}
+                                                <button type="submit" class="btn btn-danger">حذف</button>
+                                            </form>
+
+                                            {{--<a type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-default">حذف</a>--}}
+                                            {{--<div class="modal fade" id="modal-default">--}}
+                                            {{--<div class="modal-dialog">--}}
+                                            {{--<div class="modal-content">--}}
+                                            {{--<div class="modal-header">--}}
+                                            {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+                                            {{--<span aria-hidden="true">&times;</span></button>--}}
+                                            {{--<h4 class="modal-title">انجام عملیات</h4>--}}
+                                            {{--</div>--}}
+                                            {{--<div class="modal-body">--}}
+                                            {{--<p>آیا میخواهید این کاربر را حذف کنید؟</p>--}}
+                                            {{--</div>--}}
+                                            {{--<div class="modal-footer">--}}
+                                            {{--<button type="button" class="btn btn-default pull-left" data-dismiss="modal">انصراف</button>--}}
+                                            {{--<button type="submit" class="btn btn-danger">حذف</button>--}}
+                                            {{--</div>--}}
+                                            {{--</div>--}}
+                                            {{--<!-- /.modal-content -->--}}
+                                            {{--</div>--}}
+                                            {{--<!-- /.modal-dialog -->--}}
+                                            {{--</div>--}}
+                                        </div>
+                                        <!-- /.modal -->
                                     </td>
                                 </tr>
                             @endforeach
@@ -98,6 +101,9 @@
         <!-- /.row -->
     </section>
     <!-- /.content -->
+
+@endsection
+
 @section('script')
     <!-- DataTables -->
     <script src="/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
@@ -146,5 +152,4 @@
             });
         });
     </script>
-@endsection
 @endsection

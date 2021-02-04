@@ -8,7 +8,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -24,7 +23,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::where('status', 1)->get();
         return view('admin.users.index',compact('users'));
     }
 
@@ -35,18 +34,6 @@ class UserController extends Controller
      */
     public function create()
     {
-//        $roles = Auth::user()->getPermissionsViaRoles();
-//        $permission[] = "";
-//        foreach ($roles as $role){
-//            $permission[] = $role->name;
-//        }
-//
-//        if (array_search('create-users', $permission)){
-//            return view('admin.users.create');
-//        } else {
-//            abort(404);
-//        }
-
         return view('admin.users.create');
     }
 
@@ -138,5 +125,21 @@ class UserController extends Controller
         $user->delete();
 
         return back();
+    }
+
+    public function verify()
+    {
+        $users = User::where('status', 0)->get();
+        return view('admin.users.verify', compact('users'));
+    }
+
+    public function verified(Request $request, User $user)
+    {
+//        $user->level = 1;
+        $user->update([
+            'status' => 1
+        ]);
+
+        return redirect(route('users.index'));
     }
 }
