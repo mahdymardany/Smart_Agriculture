@@ -335,7 +335,8 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">منو</li>
-                <li><a href="{{ route('user.chart') }}"><i class="fa fa-line-chart"></i> <span>نمودار</span></a></li>
+                <li><a href="#"><i class="fa fa-dashboard"></i><span>داشبورد</span></a></li>
+                <li><a href="{{ route('user.chart') }}"><i class="fa fa-line-chart"></i> <span>نمودار</span>ط</a></li>
             </ul>
         </section>
         <!-- /.sidebar -->

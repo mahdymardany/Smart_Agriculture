@@ -25,8 +25,9 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'username' => 'required',
+            'username' => 'required|regex:/^\S*$/u|unique:users',
             'password' => 'min:6',
+            'level' => 'required',
             'password_confirmation' => 'required_with:password|same:password|min:6'
         ];
     }
@@ -37,6 +38,7 @@ class UserRequest extends FormRequest
 //            'name.required' => 'نام و نام خانوادگی باید وارد شود',
 //            'username.required' => 'نام کاربری باید وارد شود',
 //            'password_confirmation.same' => 'رمز های عبور یکسان نمباشند'
+        'username.regex' => 'نام کاربری باید بدون ایجاد فاصله باشد'
         ];
     }
 }

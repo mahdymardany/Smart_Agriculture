@@ -18,7 +18,7 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-                        <h1 class="box-title">سنسور ها</h1>
+                        <h1 class="box-title">نقش کاربران</h1>
                         <div class="box-tools pull-right">
                             <a href="{{ route('users-role.create') }}" class="btn btn-app" style="background-color: #89ffae">
                                 <i class="fa fa-plus"></i> ایجاد مقام
@@ -39,49 +39,53 @@
                             </thead>
                             <tbody>
                             @foreach($users as $user)
-                                <tr>
-                                    @if(count($user->roles))
-                                    <td> {{ $user->username }} </td>
-                                    <td>
-                                            @foreach($user->roles as $role)
-                                                <span class="label" style="background-color: #00bcd4; color: #ffffff;">{{ $role->name }}</span>
-                                            @endforeach
-                                    </td>
+                                @if($user_login->id != $user->id)
+                                    <tr>
+                                        <td> {{ $user->username }} </td>
+                                        <td>
+                                            @if(count($user->roles))
+                                                @foreach($user->roles as $role)
+                                                    <span class="label" style="background-color: #00bcd4; color: #ffffff;">{{ $role->name }}</span>
+                                                @endforeach
+                                            @endif
+                                            @if(!count($user->roles))
+                                                <span class="label" style="background-color: #d42c2c; color: #ffffff;">بدون نقش</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <form action="{{ route('users-role.destroy' , ['user'=> $user->id]) }}" method="post">
+                                                {{ method_field('delete') }}
+                                                {{ csrf_field() }}
+                                                <div class="btn-group btn-group-xs">
+                                                    <a href="{{ route('users-role.edit', ['user' => $user->id]) }}" class="btn btn-primary">ویرایش</a>
+                                                    <button type="submit" class="btn btn-danger">حذف</button>
+                                                    {{--<a type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-default">حذف</a>--}}
+                                                    {{--<div class="modal fade" id="modal-default">--}}
+                                                    {{--<div class="modal-dialog">--}}
+                                                    {{--<div class="modal-content">--}}
+                                                    {{--<div class="modal-header">--}}
+                                                    {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+                                                    {{--<span aria-hidden="true">&times;</span></button>--}}
+                                                    {{--<h4 class="modal-title">انجام عملیات</h4>--}}
+                                                    {{--</div>--}}
+                                                    {{--<div class="modal-body">--}}
+                                                    {{--<p>آیا میخواهید این کاربر را حذف کنید؟</p>--}}
+                                                    {{--</div>--}}
+                                                    {{--<div class="modal-footer">--}}
+                                                    {{--<button type="button" class="btn btn-default pull-left" data-dismiss="modal">انصراف</button>--}}
+                                                    {{--<button type="submit" class="btn btn-danger">حذف</button>--}}
+                                                    {{--</div>--}}
+                                                    {{--</div>--}}
+                                                    {{--<!-- /.modal-content -->--}}
+                                                    {{--</div>--}}
+                                                    {{--<!-- /.modal-dialog -->--}}
+                                                    {{--</div>--}}
+                                                </div>
 
-                                    <td>
-                                        <form action="{{ route('users-role.destroy' , ['user'=> $user->id]) }}" method="post">
-                                            {{ method_field('delete') }}
-                                            {{ csrf_field() }}
-                                            <div class="btn-group btn-group-xs">
-                                                <a href="{{ route('users-role.edit', ['user' => $user->id]) }}" class="btn btn-primary">ویرایش</a>
-                                                <button type="submit" class="btn btn-danger">حذف</button>
-                                                {{--<a type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-default">حذف</a>--}}
-                                                {{--<div class="modal fade" id="modal-default">--}}
-                                                {{--<div class="modal-dialog">--}}
-                                                {{--<div class="modal-content">--}}
-                                                {{--<div class="modal-header">--}}
-                                                {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-                                                {{--<span aria-hidden="true">&times;</span></button>--}}
-                                                {{--<h4 class="modal-title">انجام عملیات</h4>--}}
-                                                {{--</div>--}}
-                                                {{--<div class="modal-body">--}}
-                                                {{--<p>آیا میخواهید این کاربر را حذف کنید؟</p>--}}
-                                                {{--</div>--}}
-                                                {{--<div class="modal-footer">--}}
-                                                {{--<button type="button" class="btn btn-default pull-left" data-dismiss="modal">انصراف</button>--}}
-                                                {{--<button type="submit" class="btn btn-danger">حذف</button>--}}
-                                                {{--</div>--}}
-                                                {{--</div>--}}
-                                                {{--<!-- /.modal-content -->--}}
-                                                {{--</div>--}}
-                                                {{--<!-- /.modal-dialog -->--}}
-                                                {{--</div>--}}
-                                            </div>
-
-                                            <!-- /.modal -->
-                                        </form>
-                                    </td>
-                                </tr>
+                                                <!-- /.modal -->
+                                            </form>
+                                        </td>
+                                    </tr>
                                 @endif
                             @endforeach
                             </tbody>
@@ -109,16 +113,6 @@
     <script src="/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
     <script>
-        {{--$(document).ready(function() {--}}
-        {{--$('#example').DataTable({--}}
-        {{--"ajax": "{{ route('api.index') }}",--}}
-        {{--"columns": [--}}
-        {{--// { "data": "id" },--}}
-        {{--{ "data": "name" },--}}
-        {{--{ "data": "username" },--}}
-        {{--],--}}
-        {{--});--}}
-        {{--});--}}
         $(document).ready(function() {
             $('#example').DataTable({
                 deferRender:    true,

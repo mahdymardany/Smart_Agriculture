@@ -9,32 +9,31 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">ایجاد نقش برای کاربر</h3>
+                        <h3 class="box-title">ایجاد زمین</h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" action="{{route('users-role.store')}}" method="POST">
+                    <form role="form" action="{{route('lands.store')}}" method="POST">
                         @csrf
                         @include('admin.section.errors')
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="user_id">کاربر :</label>
-                                <select class="form-control chosen-select" style="width: 100%;" name="user_id" id="user_id">
+                                <label for="name">نام زمین</label>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="نام زمین">
+                            </div>
+                            <div class="form-group">
+                                <label for="user">نام کاربر</label>
+                                <select class="form-control chosen-select" style="width: 100%;" name="user_id" id="user">
                                     @foreach($users as $user)
-                                        @if($user_login->id != $user->id)
-                                            <option value="{{ $user->id }}">{{$user->username}}</option>
-                                        @endif
+                                         <option value="{{ $user->id }}">{{$user->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="role_id">نقش ها:</label>
-                                <select class="form-control chosen-select" style="width: 100%;" multiple name="role_id[]" id="role_id" data-placeholder="نقش های مورد نظر را انتخاب کنید">
-                                    @foreach($roles as $role)
-                                        <option value="{{ $role->id }}">{{$role->name}}</option>
-                                    @endforeach
-                                </select>
+                                <label for="mapid">نقشه</label>
+                                <div id="mapid"></div>
                             </div>
+                            <input type="hidden" id="eventoutput" name="points">
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer">
@@ -49,7 +48,10 @@
 @endsection
 @section('script')
     <script src="{{ asset('js/chosen.js') }}"></script>
+    <script src="{{ asset('js/map.js') }}"></script>
+
 @endsection
 @section('css')
     <link rel="stylesheet" href="{{asset('css/chosen.css')}}">
+    <link rel="stylesheet" href="{{asset('css/map.css')}}">
 @endsection

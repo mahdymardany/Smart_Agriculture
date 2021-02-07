@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RoleUserController extends Controller
 {
@@ -16,9 +17,9 @@ class RoleUserController extends Controller
      */
     public function index()
     {
-        $users = User::with('roles')->first();
-        return $users;
-        return view('admin.role-user.index', compact('users'));
+        $user_login = Auth::user();
+        $users = User::where('level', '1')->with('roles')->get();
+        return view('admin.role-user.index', compact(['users', 'user_login']));
     }
 
     /**
@@ -28,9 +29,10 @@ class RoleUserController extends Controller
      */
     public function create()
     {
-        $users = User::all();
+        $user_login = Auth::user();
+        $users = User::where('level', '1')->with('roles')->get();
         $roles = Role::all();
-        return view('admin.role-user.create',compact(['users','roles']));
+        return view('admin.role-user.create',compact(['users', 'roles', 'user_login']));
     }
 
     /**
@@ -42,7 +44,12 @@ class RoleUserController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+           'user_id' => ['required', 'string'],
+           'role_id' => ['required'],
+        ]);
         User::find($request->input('user_id'))->roles()->sync($request->input('role_id'));
+
         return redirect(route('users-role.index'));
     }
 

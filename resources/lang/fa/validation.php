@@ -149,6 +149,8 @@ return array(
         'label' => 'توضیحات',
         'comment' => 'کامنت',
         'serial' => 'سریال',
-        'land_id' => 'زمین'
+        'land_id' => 'زمین',
+        'role_id' => 'نقش ها',
+        'user_id' => 'کاربر',
     ),
 );

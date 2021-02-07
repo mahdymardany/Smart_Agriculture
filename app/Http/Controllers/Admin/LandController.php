@@ -39,7 +39,7 @@ class LandController extends Controller
             $users=User::all();
             return view('admin.lands.create',compact('users'));
         }
-        abort(404);
+        abort(401);
     }
     /**
      * Store a newly created resource in storage.

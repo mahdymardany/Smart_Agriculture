@@ -5354,7 +5354,7 @@ Test.prototype = new F;
 Test.prototype.constructor = Test;
 
 
-}); // module: test.js
+}); // module: test.html
 
 require.register("utils.js", function(module, exports, require){
 /**

@@ -11,11 +11,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-//    public function __construct()
-//    {
-//        $this->middleware('role:super_admin', ['only' => ['create','show']]);
-//    }
-
     /**
      * Display a listing of the resource.
      *
@@ -40,14 +35,17 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param UserRequest $request
+     * @param User $user
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(UserRequest $request, User $user)
     {
-        //TODO User Create
-        $user = new User($request->all());
+
+        $user->name = $request->input('name');
+        $user->username = $request->input('username');
         $user->level = $request->input('level');
+        $user->status = 1;
         $user->password = Hash::make($request->input('password'));
         $user->save();
 
@@ -68,7 +66,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param User $user
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
@@ -79,8 +77,8 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param User $user
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
@@ -98,17 +96,8 @@ class UserController extends Controller
             $data['password'] = $request->password;
         }
         $user->level = $request->input('level');
-//        return $data;
-//        return $user;
-        $user->update($data);
 
-//        $user->name = $request->input('name');
-//        $user->username = $request->input('username');
-//        $user->level = $request->input('level');
-//        if(trim($request->input('password') != "")){
-//            $user->password = Hash::make($request->input('password'));
-//        }
-//        $user->save();
+        $user->update($data);
 
         return redirect(route('users.index'));
     }
@@ -116,7 +105,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)
@@ -135,7 +124,6 @@ class UserController extends Controller
 
     public function verified(Request $request, User $user)
     {
-//        $user->level = 1;
         $user->update([
             'status' => 1
         ]);

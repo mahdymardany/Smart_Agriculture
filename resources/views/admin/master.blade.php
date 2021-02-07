@@ -335,9 +335,10 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">منو</li>
+                <li><a href="#"><i class="fa fa-dashboard"></i><span>داشبورد</span></a></li>
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-dashboard"></i> <span>مدیریت کاربران</span>
+                        <i class="fa fa-users"></i> <span>مدیریت کاربران</span>
                         <span class="pull-left-container">
               <i class="fa fa-angle-right pull-left"></i>
             </span>
@@ -353,7 +354,7 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-dashboard"></i> <span>سطوح دسترسی</span>
+                        <i class="fa fa-lock"></i> <span>سطوح دسترسی</span>
                         <span class="pull-left-container">
               <i class="fa fa-angle-right pull-left"></i>
             </span>
@@ -373,7 +374,9 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
+                        @can('create-land')
                         <li><a href="{{ route('lands.create') }}"><i class="fa fa-plus"></i>ایجاد زمین</a></li>
+                        @endcan
                         <li><a href="{{ route('lands.index') }}"><i class="fa fa-users"></i>لیست زمین</a></li>
                     </ul>
                 </li>
