@@ -26,7 +26,7 @@ class RegisterController extends Controller
         $user->status = 0;
         $user->save();
 
-        alert()->success('ثبت نام شما با موفقیت انجام شد و پس از تایید ادمین شما میتوانید به پنل خود دسترسی داشته باشید','کاربر : ' . $data['name'])->persistent('تایید');
+        alert()->success('ثبت نام شما با موفیت انجام شد، منتظر تایید مدیر باشید','کاربر : ' . $data['name'])->persistent('تایید');
         return redirect(route('login'));
     }
 }

@@ -90,5 +90,10 @@
 <script src="../../admin/plugins/iCheck/icheck.min.js"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 @include('sweet::alert')
+{{--<style>--}}
+    {{--.swal-text{--}}
+        {{--text-align: right;--}}
+    {{--}--}}
+{{--</style>--}}
 </body>
 </html>
