@@ -96,8 +96,6 @@
     <!-- DataTables -->
     <script src="/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-    {{--<script src="{{ asset('js/sweetalert2.js') }}"></script>--}}
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>--}}
 
     <script type="text/javascript">
         $('#delete').on('show.bs.modal', function (event) {

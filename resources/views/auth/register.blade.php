@@ -30,14 +30,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition register-page">
-@if($errors->any())
-    {{--div.alert.alert-danger + tab--}}
-    <div class="alert alert-danger">
-        @foreach($errors->all() as $error)
-            {{$error}}<br/>
-        @endforeach
-    </div>
-@endif
 <div class="register-box">
     <div class="register-logo">
         <a href="../../admin/index2.html"><b>ثبت نام در سایت</b></a>
@@ -48,20 +40,29 @@
 
         <form action="{{ route('user.register') }}" method="post">
             @csrf
+            @if(count($errors)>0)
+
+                <ul style="color: red">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+
+            @endif
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" placeholder="نام و نام خانوادگی" name="name" value="{{ old('name') }}">
+                <input type="text" class="form-control" placeholder="نام و نام خانوادگی" name="name" value="{{ old('name') }}" required>
                 <span class="fa fa-vcard-o form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" placeholder="نام کاربری" name="username" value="{{ old('username') }}">
+                <input type="text" class="form-control" placeholder="نام کاربری" name="username" value="{{ old('username') }}" required>
                 <span class="fa fa-user-circle form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="رمز عبور" name="password">
+                <input type="password" class="form-control" placeholder="رمز عبور" name="password" required>
                 <span class="fa fa-lock form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" name="password_confirmation" class="form-control" placeholder="تکرار رمز عبور">
+                <input type="password" name="password_confirmation" class="form-control" placeholder="تکرار رمز عبور" required>
                 <span class="fa fa-key form-control-feedback"></span>
             </div>
             <!-- /.col -->

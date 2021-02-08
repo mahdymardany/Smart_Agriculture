@@ -20,6 +20,7 @@
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.32.4",
         "sass-loader": "^8.0.0",
+        "sweetalert": "^2.1.2",
         "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10"
     },
@@ -29,7 +30,6 @@
         "leaflet": "^1.7.1",
         "leaflet-contextmenu": "^1.4.0",
         "leaflet-measure": "^3.1.0",
-        "leaflet.fullscreen": "^1.6.0",
-        "sweetalert2": "^10.13.3"
+        "leaflet.fullscreen": "^1.6.0"
     }
 }
