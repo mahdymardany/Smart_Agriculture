@@ -49,44 +49,14 @@
                                             {{ method_field('delete') }}
                                             {{ csrf_field() }}
                                             <div class="btn-group btn-group-xs">
-                                                <a href="{{ route('roles.edit', ['role' => $role->id]) }}" class="btn btn-primary">ویرایش</a>
-                                                <button type="submit" class="btn btn-danger">حذف</button>
-                                                {{--<a type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-default">حذف</a>--}}
-                                                {{--<div class="modal fade" id="modal-default">--}}
-                                                {{--<div class="modal-dialog">--}}
-                                                {{--<div class="modal-content">--}}
-                                                {{--<div class="modal-header">--}}
-                                                {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-                                                {{--<span aria-hidden="true">&times;</span></button>--}}
-                                                {{--<h4 class="modal-title">انجام عملیات</h4>--}}
-                                                {{--</div>--}}
-                                                {{--<div class="modal-body">--}}
-                                                {{--<p>آیا میخواهید این کاربر را حذف کنید؟</p>--}}
-                                                {{--</div>--}}
-                                                {{--<div class="modal-footer">--}}
-                                                {{--<button type="button" class="btn btn-default pull-left" data-dismiss="modal">انصراف</button>--}}
-                                                {{--<button type="submit" class="btn btn-danger">حذف</button>--}}
-                                                {{--</div>--}}
-                                                {{--</div>--}}
-                                                {{--<!-- /.modal-content -->--}}
-                                                {{--</div>--}}
-                                                {{--<!-- /.modal-dialog -->--}}
-                                                {{--</div>--}}
+                                                <a href="{{ route('roles.edit', ['role' => $role->id]) }}" class="btn btn-primary"><i class="fa fa-fw fa-edit"></i></a>
+                                                <button type="submit" class="btn btn-danger"><i class="fa fa-fw fa-trash-o"></i></button>
                                             </div>
-
-                                            <!-- /.modal -->
                                         </form>
                                     </td>
                                 </tr>
                             @endforeach
                             </tbody>
-                            {{--<tfoot>--}}
-                            {{--<tr>--}}
-                            {{--<th>نام کاربری</th>--}}
-                            {{--<th>نام و نام خانوادگی</th>--}}
-                            {{--<th>ویرایش</th>--}}
-                            {{--</tr>--}}
-                            {{--</tfoot>--}}
                         </table>
                     </div>
                     <!-- /.box-body -->
@@ -98,22 +68,14 @@
         <!-- /.row -->
     </section>
     <!-- /.content -->
+@endsection
+
 @section('script')
     <!-- DataTables -->
     <script src="/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
     <script>
-        {{--$(document).ready(function() {--}}
-        {{--$('#example').DataTable({--}}
-        {{--"ajax": "{{ route('api.index') }}",--}}
-        {{--"columns": [--}}
-        {{--// { "data": "id" },--}}
-        {{--{ "data": "name" },--}}
-        {{--{ "data": "username" },--}}
-        {{--],--}}
-        {{--});--}}
-        {{--});--}}
         $(document).ready(function() {
             $('#example').DataTable({
                 deferRender:    true,
@@ -146,5 +108,4 @@
             });
         });
     </script>
-@endsection
 @endsection

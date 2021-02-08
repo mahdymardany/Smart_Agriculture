@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -85,7 +86,7 @@ class UserController extends Controller
     {
         $data = $request->validate(([
             'name' => ['required'],
-            'username' => ['required'],
+            'username' => ['required', 'regex:/^\S*$/u', 'string', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u', Rule::unique('users')->ignore($user->id)],
             'level' => ['required'],
         ]));
 
@@ -124,10 +125,7 @@ class UserController extends Controller
 
     public function verified(Request $request, User $user)
     {
-        $user->update([
-            'status' => 1
-        ]);
-
+        $user->update(['status' => 1]);
         return redirect(route('users.index'));
     }
 }

@@ -276,20 +276,7 @@
                                 </p>
                             </li>
                             <!-- Menu Body -->
-                            <li class="user-body">
-                                <div class="row">
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">صفحه من</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">فروش</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">دوستان</a>
-                                    </div>
-                                </div>
-                                <!-- /.row -->
-                            </li>
+
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-right">
@@ -335,7 +322,7 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">منو</li>
-                <li><a href="#"><i class="fa fa-dashboard"></i><span>داشبورد</span></a></li>
+                <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i><span>داشبورد</span></a></li>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-users"></i> <span>مدیریت کاربران</span>

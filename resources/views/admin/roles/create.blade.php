@@ -9,7 +9,7 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">ایجاد سنسور</h3>
+                        <h3 class="box-title">ایجاد مقام</h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
@@ -19,11 +19,11 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="role">نام نقش</label>
-                                <input type="text" class="form-control" name="name" id="role" placeholder="نام نقش">
+                                <input type="text" class="form-control" name="name" id="role" placeholder="نام نقش را وارد کنید">
                             </div>
                             <div class="form-group">
                                 <label for="permission">مجوز ها</label>
-                                <select class="form-control chosen-select" multiple style="width: 100%;" name="permissions[]" id="permission">
+                                <select class="form-control chosen-select" multiple style="width: 100%;" name="permissions[]" id="permission" data-placeholder="مجوزها را انتخاب کنید">
                                     @foreach($permissions as $permission)
                                         <option value="{{ $permission->id }}"> {{$permission->label}}</option>
                                     @endforeach

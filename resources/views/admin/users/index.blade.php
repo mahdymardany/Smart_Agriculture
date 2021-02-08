@@ -43,16 +43,10 @@
                                     <td>{{ $user->username }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>
-                                        {{--<form action="{{ route('users.destroy' , ['user'=> $user->id]) }}" method="post">--}}
-                                            {{--{{ method_field('delete') }}--}}
-                                            {{--{{ csrf_field() }}--}}
-
                                             <div class="btn-group btn-group-xs">
-                                                <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-primary">ویرایش</a>
-                                                {{--<button type="submit" class="btn btn-danger">حذف</button>--}}
-                                                <button class="btn btn-danger" data-userid={{$user->id}} data-toggle="modal" data-target="#delete">Delete</button>
-
-
+                                                <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-primary"><i class="fa fa-fw fa-edit"></i></a>
+                                                <button class="btn btn-danger" data-userid={{$user->id}} data-toggle="modal" data-target="#delete"><i class="fa fa-fw fa-trash-o"></i></button>
+                                            </div>
                                                 <!-- Modal -->
                                                 <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                     <div class="modal-dialog" role="document">
@@ -78,42 +72,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {{--<a type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-default">حذف</a>--}}
-                                                {{--<div class="modal fade" id="modal-default">--}}
-                                                    {{--<div class="modal-dialog">--}}
-                                                        {{--<div class="modal-content">--}}
-                                                            {{--<div class="modal-header">--}}
-                                                                {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-                                                                    {{--<span aria-hidden="true">&times;</span></button>--}}
-                                                                {{--<h4 class="modal-title">انجام عملیات</h4>--}}
-                                                            {{--</div>--}}
-                                                            {{--<div class="modal-body">--}}
-                                                                {{--<p>آیا میخواهید این کاربر را حذف کنید؟</p>--}}
-                                                            {{--</div>--}}
-                                                            {{--<div class="modal-footer">--}}
-                                                                {{--<button type="button" class="btn btn-default pull-left" data-dismiss="modal">انصراف</button>--}}
-                                                                {{--<button type="submit" class="btn btn-danger">حذف</button>--}}
-                                                            {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--<!-- /.modal-content -->--}}
-                                                    {{--</div>--}}
-                                                    {{--<!-- /.modal-dialog -->--}}
-                                                {{--</div>--}}
-                                            </div>
 
                                             <!-- /.modal -->
-                                        {{--</form>--}}
                                     </td>
                                 </tr>
                             @endforeach
                             </tbody>
-                            {{--<tfoot>--}}
-                            {{--<tr>--}}
-                                {{--<th>نام کاربری</th>--}}
-                                {{--<th>نام و نام خانوادگی</th>--}}
-                                {{--<th>ویرایش</th>--}}
-                            {{--</tr>--}}
-                            {{--</tfoot>--}}
                         </table>
                     </div>
                     <!-- /.box-body -->
@@ -126,6 +90,8 @@
     </section>
     <!-- /.content -->
 @endsection
+
+
 @section('script')
     <!-- DataTables -->
     <script src="/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>

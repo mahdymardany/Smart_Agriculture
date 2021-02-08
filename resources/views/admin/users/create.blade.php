@@ -23,11 +23,11 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">نام و نام خانوادگی</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="نام و نام خانوادگی">
+                                <input type="text" class="form-control" name="name" id="name" placeholder="نام و نام خانوادگی" value="{{ old('name') }}">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">نام کاربری</label>
-                                <input type="text" class="form-control" name="username" id="exampleInputEmail1" placeholder="نام کاربری">
+                                <input type="text" class="form-control" name="username" id="exampleInputEmail1" placeholder="نام کاربری" value="{{ old('username') }}">
                             </div>
                             <div class="form-group">
                                 <label>دسترسی به پنل :</label>

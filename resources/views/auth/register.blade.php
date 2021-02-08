@@ -49,20 +49,20 @@
         <form action="{{ route('user.register') }}" method="post">
             @csrf
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" placeholder="نام و نام خانوادگی" name="name">
-                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                <input type="text" class="form-control" placeholder="نام و نام خانوادگی" name="name" value="{{ old('name') }}">
+                <span class="fa fa-vcard-o form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" placeholder="نام کاربری" name="username">
-                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                <input type="text" class="form-control" placeholder="نام کاربری" name="username" value="{{ old('username') }}">
+                <span class="fa fa-user-circle form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
                 <input type="password" class="form-control" placeholder="رمز عبور" name="password">
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                <span class="fa fa-lock form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
                 <input type="password" name="password_confirmation" class="form-control" placeholder="تکرار رمز عبور">
-                <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+                <span class="fa fa-key form-control-feedback"></span>
             </div>
             <!-- /.col -->
             <div class="row">

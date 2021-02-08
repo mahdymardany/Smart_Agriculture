@@ -24,11 +24,11 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'username' => 'required|regex:/^\S*$/u|unique:users',
-            'password' => 'min:6',
-            'level' => 'required',
-            'password_confirmation' => 'required_with:password|same:password|min:6'
+            'name' => ['required'],
+            'username' => ['required', 'regex:/^\S*$/u', 'unique:users', 'string', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
+            'password' => ['required', 'min:6'],
+            'level' => ['required'],
+            'password_confirmation' => ['required_with:password', 'same:password'],
         ];
     }
 
@@ -38,7 +38,7 @@ class UserRequest extends FormRequest
 //            'name.required' => 'نام و نام خانوادگی باید وارد شود',
 //            'username.required' => 'نام کاربری باید وارد شود',
 //            'password_confirmation.same' => 'رمز های عبور یکسان نمباشند'
-        'username.regex' => 'نام کاربری باید بدون ایجاد فاصله باشد'
+        'username.regex' => 'نام کاربری معتبر نیست'
         ];
     }
 }

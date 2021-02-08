@@ -80,7 +80,7 @@ map.on('measurestart', function(evt) {
 });
 
 map.on('measurefinish', function(evt) {
-    var points = document.getElementById('eventoutput').value = JSON.stringify([evt.points]);
+    var points = document.getElementById('eventoutput').value = JSON.stringify(evt.points);
     $(".leaflet-control-measure").toggle(function() {
         map.off('click', layer.getFeatureInfo, layer);
         map.off('click', popup);
