@@ -7,6 +7,7 @@ use App\Http\Requests\CreteLandRequest;
 use Illuminate\Http\Request;
 use App\Models\Land;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class LandController extends Controller
@@ -35,7 +36,7 @@ class LandController extends Controller
      */
     public function create()
     {
-        if (Gate::allows('create-land')){
+        if (Gate::allows('create-land') || Auth::user()->level == 2){
             $users=User::all();
             return view('admin.lands.create',compact('users'));
         }

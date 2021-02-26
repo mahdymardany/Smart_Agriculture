@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>داشبورد | کنترل پنل مدیریت</title>
+    <title>داشبورد | کنترل پنل کاربری</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -51,7 +51,7 @@
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini">پنل</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>کنترل پنل مدیریت</b></span>
+            <span class="logo-lg"><b>کنترل پنل کاربری</b></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
@@ -280,7 +280,7 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">پروفایل</a>
+                                    <a href="{{ route('user.profile.index') }}" class="btn btn-default btn-flat">پروفایل</a>
                                 </div>
                                 <div class="pull-left">
                                     <a href="{{ route('logout') }}"

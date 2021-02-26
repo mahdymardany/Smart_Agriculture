@@ -29,10 +29,10 @@ files=( \
   src/legend.js \
   src/data-series.js \
   src/proj.js \
-  src/map-object.js \
+  src/createMap-object.js \
   src/region.js \
   src/marker.js \
-  src/map.js \
+  src/createMapate-map.js \
   src/multimap.js \
 )
 

@@ -19,7 +19,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::where('status', 1)->get();
+//        $users = User::where('status', 1)->get();
+        $users = User::where('status', 1)->whereNotIn('level', [2])->get();
         return view('admin.users.index',compact('users'));
     }
 
@@ -49,6 +50,8 @@ class UserController extends Controller
         $user->status = 1;
         $user->password = Hash::make($request->input('password'));
         $user->save();
+
+        alert()->success('کاربر با موفقیت ایجاد شد');
 
         return redirect(route('users.index'));
     }
@@ -84,22 +87,23 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $data = $request->validate(([
+        $data = $request->validate([
             'name' => ['required'],
             'username' => ['required', 'regex:/^\S*$/u', 'string', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u', Rule::unique('users')->ignore($user->id)],
             'level' => ['required'],
-        ]));
+        ]);
 
         if (! is_null($request->password)){
             $request->validate([
                 'password' => ['required', 'min:6', 'confirmed']
             ]);
-            $data['password'] = $request->password;
+            $data['password'] = Hash::make($request->password);
         }
         $user->level = $request->input('level');
 
         $user->update($data);
 
+        alert()->success('کاربر با موفقیت ویرایش شد');
         return redirect(route('users.index'));
     }
 
@@ -111,21 +115,26 @@ class UserController extends Controller
      */
     public function destroy(Request $request)
     {
+        return $request;
         $user = User::findOrFail($request->user_id);
         $user->delete();
 
+        alert()->success('کاربر با موفقیت حذف شد');
         return back();
     }
 
     public function verify()
     {
-        $users = User::where('status', 0)->get();
+        $users = User::all();
         return view('admin.users.verify', compact('users'));
     }
 
-    public function verified(Request $request, User $user)
+    public function verified(User $user)
     {
         $user->update(['status' => 1]);
-        return redirect(route('users.index'));
+
+        alert()->success('کاربر با موفقیت تایید شد');
+
+        return redirect(route('users.verify'));
     }
 }

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
 
 class RegisterController extends Controller
 {
@@ -14,7 +13,7 @@ class RegisterController extends Controller
     {
         $data = $request->validate([
             'name' => ['required'],
-            'username' => ['required', 'regex:/^\S*$/u', 'string', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u', Rule::unique('users')->ignore($user->id)],
+            'username' => ['required', 'regex:/^\S*$/u', 'string', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
             'password' => ['required', 'min:6'],
             'password_confirmation' => ['required_with:password', 'same:password'],
         ]);

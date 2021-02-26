@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\User\DashboardController;
+use App\Http\Controllers\User\ProfileController;
+
 //use App\Http\Controllers\HomeController;
 
 /*
@@ -28,6 +30,10 @@ Route::group(['middleware' => ['auth', 'auth.user']] , function (){
     Route::get('/user/chart', function (){
         return view('user.chart.index');
     })->name('user.chart');
+//    if (Auth::user()->level == 0) {
+        Route::get('/user/profile', [ProfileController::class, 'index'])->name('user.profile.index');
+        Route::PATCH('/user/profile/{user}', [ProfileController::class, 'update'])->name('user.profile.update');
+//    }
 });
 
 

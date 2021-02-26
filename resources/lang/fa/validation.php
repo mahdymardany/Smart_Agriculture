@@ -152,5 +152,6 @@ return array(
         'land_id' => 'زمین',
         'role_id' => 'نقش ها',
         'user_id' => 'کاربر',
+        'permissions' => 'مجوز ها',
     ),
 );

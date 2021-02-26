@@ -231,7 +231,7 @@ This builds upon [the second release candidate](https://github.com/select2/selec
 
 ##### Deprecated/Removed
 - `initSelection` - This is [no longer needed](https://select2.org/upgrading/migrating-from-35#removed-the-requirement-of-initselection) with `<select>` tags.  Limited backwards compatibility in the [full build](https://select2.org/getting-started/builds-and-modules).
-- `id` - Data objects should now always have `id` and `text` attributes that are strings, use [`$.map`](https://api.jquery.com/jquery.map/) when migrating
+- `id` - Data objects should now always have `id` and `text` attributes that are strings, use [`$.createMap`](https://api.jquery.com/jquery.createMap/) when migrating
 - `query` - Use a [custom data adapter](https://select2.org/upgrading/migrating-from-35#custom-data-adapters-instead-of-query) instead.  Limited backwards compatibility in the [full build](https://select2.org/getting-started/builds-and-modules).
 - `ajax.params` - All parameters passed to `ajax` will be passed to the AJAX data transport function
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RoleUserRequest;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -42,14 +43,10 @@ class RoleUserController extends Controller
      * @param User $user
      * @return void
      */
-    public function store(Request $request)
+    public function store(RoleUserRequest $request)
     {
-        $request->validate([
-           'user_id' => ['required', 'string'],
-           'role_id' => ['required'],
-        ]);
         User::find($request->input('user_id'))->roles()->sync($request->input('role_id'));
-
+        alert()->success('مقام کاربر با موفقیت ایجاد شد');
         return redirect(route('users-role.index'));
     }
 
@@ -83,9 +80,10 @@ class RoleUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(RoleUserRequest $request, User $user)
     {
         $user->roles()->sync($request->input('role_id'));
+        alert()->success('مقام کاربر با موفقیت ویرایش شد');
         return redirect(route('users-role.index'));
     }
 
@@ -98,6 +96,7 @@ class RoleUserController extends Controller
     public function destroy(User $user)
     {
         $user->roles()->detach();
+        alert()->success('مقام کاربر با موفقیت حذف شد');
         return back();
     }
 }

@@ -13,7 +13,7 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">ویرایش نقش کاربر</h3>
+                        <h3 class="box-title">ویرایش نقش کاربر : {{ $user->username }}</h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
@@ -23,12 +23,11 @@
                         @include('admin.section.errors')
                         <div class="box-body">
                             <div class="form-group">
-                                <h4> کاربر : {{ $user->username }} </h4>
                                 <input type="hidden" value="{{ $user->id }}">
                             </div>
                             <div class="form-group">
                                 <label>نقش ها</label>
-                                <select class="form-control chosen-select" multiple style="width: 100%;" name="role_id[]">
+                                <select class="form-control chosen-select" multiple style="width: 100%;" name="role_id[]" data-placeholder="نقش های مورد نظر را انتخاب کنید">
                                     @foreach($roles as $role)
                                         <option value="{{ $role->id }}" {{ in_array($role->id , $user->roles()->pluck('id')->toArray()) ? 'selected' : '' }}>{{$role->name}}</option>
                                     @endforeach

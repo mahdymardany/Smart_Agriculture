@@ -1,4 +1,5 @@
 @extends('admin.master')
+
 @section('main-content')
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -37,32 +38,57 @@
                             </thead>
                             <tbody>
                             @foreach($users as $user)
-                                <tr>
-                                    <td>{{ $user->username }}</td>
-                                    <td>{{ $user->name }}</td>
-                                    <td>
-                                        <div class="btn-group btn-group-xs">
+                                @if($user->status == 1)
+                                    <tr>
+                                        <td>{{ $user->username }}</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>
+                                            <div class="btn-group btn-group-xs">
                                             <span class="spanFormat">
                                                 <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-primary"><i class="fa fa-fw fa-edit"></i></a>
                                             </span>
-                                            <span class="spanFormat">
+                                                <span class="spanFormat">
                                                 <form action="{{ route('users.verified' , ['user'=> $user->id]) }}" method="post">
                                                     {{ csrf_field() }}
                                                     {{ method_field('put') }}
                                                     <button type="submit" class="btn btn-success"><i class="fa fa-fw fa-check"></i></button>
                                                 </form>
                                             </span>
-                                            <span class="spanFormat">
-                                                <form action="{{ route('users.destroy' , ['user'=> $user->id]) }}" method="post">
-                                                    {{ csrf_field() }}
-                                                    {{ method_field('delete') }}
-                                                    <button type="submit" class="btn btn-danger"><i class="fa fa-fw fa-trash-o"></i></button>
-                                                </form>
+                                                <span class="spanFormat">
+                                                    <button class="btn btn-danger" data-userid={{$user->id}} data-toggle="modal" data-target="#delete"><i class="fa fa-fw fa-trash-o"></i></button>
                                             </span>
-                                        </div>
+                                            </div>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            <h4 class="modal-title text-center" id="myModalLabel">تایید حذف</h4>
+                                                        </div>
+                                                        <form action="{{route('users.destroy',['user' => $user->id])}}" method="post">
+                                                            {{method_field('delete')}}
+                                                            {{csrf_field()}}
+                                                            <div class="modal-body">
+                                                                <p class="text-center">
+                                                                    آیا از حذف این کاربر اطمینان دارین؟
+                                                                </p>
+                                                                <input type="hidden" name="user_id" id="user_id" value="">
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-primary" data-dismiss="modal">خیر، منصرف شدم</button>
+                                                                <button type="submit" class="btn btn-danger">بله، حذف شود</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                    </td>
-                                </tr>
+                                            <!-- /.modal -->
+                                        </td>
+                                    </tr>
+                                @endif
+
                             @endforeach
                             </tbody>
                         </table>
@@ -76,14 +102,24 @@
         <!-- /.row -->
     </section>
     <!-- /.content -->
-
+    @include('sweet::alert')
 @endsection
+
 
 @section('script')
     <!-- DataTables -->
     <script src="/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
+    <script type="text/javascript">
+        $('#delete').on('show.bs.modal', function (event) {
+            console.log(event);
+            var button = $(event.relatedTarget);
+            var user_id = button.data('userid');
+            var modal = $(this);
+            modal.find('.modal-body #user_id').val(user_id);
+        })
+    </script>
     <script>
         $(document).ready(function() {
             $('#example').DataTable({
@@ -117,6 +153,8 @@
             });
         });
     </script>
+
+
 @endsection
 
 @section('css')
@@ -128,4 +166,5 @@
             min-width: 10px;
         }
     </style>
+    <script src="{{ asset('js/app.js') }}"></script>
 @endsection()

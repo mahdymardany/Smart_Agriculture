@@ -27,7 +27,7 @@
 @endsection
 @section('script')
     <script src="{{ asset('js/chosen.js') }}"></script>
-    <script src="{{ asset('js/show-map.js') }}"></script>
+    <script src="{{ asset('js/leaflet/land-show.js') }}"></script>
 
 @endsection
 @section('css')

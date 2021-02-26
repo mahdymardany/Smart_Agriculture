@@ -8,7 +8,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i> داشبورد</a></li>
-            <li><a href="{{route('users.index')}}">نقش کاربران</a></li>
+            <li><a href="{{route('users.index')}}">مقام ها</a></li>
         </ol>
     </section>
 
@@ -60,20 +60,12 @@
                                                     <a href="{{ route('users-role.edit', ['user' => $user->id]) }}" class="btn btn-primary"><i class="fa fa-fw fa-edit"></i></a>
                                                     <button type="submit" class="btn btn-danger"><i class="fa fa-fw fa-trash-o"></i></button>
                                                 </div>
-                                                <!-- /.modal -->
                                             </form>
                                         </td>
                                     </tr>
                                 @endif
                             @endforeach
                             </tbody>
-                            {{--<tfoot>--}}
-                            {{--<tr>--}}
-                            {{--<th>نام کاربری</th>--}}
-                            {{--<th>نام و نام خانوادگی</th>--}}
-                            {{--<th>ویرایش</th>--}}
-                            {{--</tr>--}}
-                            {{--</tfoot>--}}
                         </table>
                     </div>
                     <!-- /.box-body -->
@@ -85,11 +77,15 @@
         <!-- /.row -->
     </section>
     <!-- /.content -->
+
+
+    @include('sweet::alert')
+@endsection
+
 @section('script')
     <!-- DataTables -->
     <script src="/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-
     <script>
         $(document).ready(function() {
             $('#example').DataTable({
@@ -124,5 +120,6 @@
         });
     </script>
 @endsection
-
+@section('css')
+    <script src="{{ asset('js/app.js') }}"></script>
 @endsection

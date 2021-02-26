@@ -50,11 +50,11 @@
 
             @endif
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" name="username" id="username" placeholder="نام کاربری..." required>
+                <input type="text" class="form-control" name="username" id="username" placeholder="نام کاربری..." >
                 <span class="fa fa-user-circle form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" name="password" id="password" placeholder="رمز عبور..." required>
+                <input type="password" class="form-control" name="password" id="password" placeholder="رمز عبور..." >
                 <span class="fa fa-lock form-control-feedback"></span>
             </div>
             <div class="row">
@@ -90,10 +90,10 @@
 <script src="../../admin/plugins/iCheck/icheck.min.js"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 @include('sweet::alert')
-{{--<style>--}}
-    {{--.swal-text{--}}
-        {{--text-align: right;--}}
-    {{--}--}}
-{{--</style>--}}
+<style>
+    .swal-text{
+        text-align: right;
+    }
+</style>
 </body>
 </html>

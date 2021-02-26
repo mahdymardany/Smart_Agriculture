@@ -10,7 +10,7 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">ایجاد کاربر</h3>
+                        <h3 class="box-title">ویرایش نقش</h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
@@ -21,14 +21,13 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="role">نام نقش</label>
-                                <input type="text" class="form-control" name="name" id="role" placeholder="نام نقش" value="{{ $role->name }}">
+                                <input type="text" class="form-control" name="name" id="role" placeholder="نام نقش" value="{{ old('name' , $role->name) }}">
                             </div>
                             <div class="form-group">
                                 <label for="permissions">مجوز ها</label>
-                                <select class="form-control chosen-select" multiple name="permissions[]" id="permissions" style="width: 100%;" >
+                                <select class="form-control chosen-select" multiple name="permissions[]" id="permissions" style="width: 100%;" data-placeholder="مجوز ها را انتخاب کنید">
                                     @foreach($permissions as $permission)
-                                        {{-- in_array ( $value,  $name of array ) --}}
-                                        <option value="{{ $permission->id }}" {{ in_array($permission->id , $role->permissions()->pluck('id')->toArray()) ? 'selected' : '' }}>{{$permission->name}}</option>
+                                        <option value="{{ $permission->id }}" {{ in_array($permission->id , $role->permissions()->pluck('id')->toArray()) ? 'selected' : '' }}>{{$permission->label}}</option>
                                     @endforeach
                                 </select>
                             </div>

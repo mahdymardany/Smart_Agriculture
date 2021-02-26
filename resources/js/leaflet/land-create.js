@@ -4,7 +4,7 @@ import 'leaflet-measure/dist/leaflet-measure.fa'
 import 'leaflet-contextmenu';
 import 'leaflet.fullscreen';
 
-let map = L.map('mapid', {
+let createMap = L.map('mapid', {
     contextmenu: true,
     contextmenuWidth: 140,
     contextmenuItems: [{
@@ -31,9 +31,9 @@ let map = L.map('mapid', {
     //     position: 'bottomleft'
     // }
 }).setView([36.29813761025315, 59.60592779759344], 12);
-map.attributionControl.setPrefix('<a href="http://blog.thematicmapping.org/">Raya</a>');
+createMap.attributionControl.setPrefix('<a href="http://blog.thematicmapping.org/">Raya</a>');
 
-L.tileLayer('https://tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png').addTo(map);
+L.tileLayer('https://tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png').addTo(createMap);
 
 var Defaultmap = L.tileLayer('https://tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png', {
     maxZoom: 17,
@@ -64,7 +64,7 @@ var _baseLayers = {
     "GeoportailFrance_orthos": GeoportailFrance_orthos
 };
 
-L.control.layers(_baseLayers, null, {position: "bottomright"}).addTo(map);
+L.control.layers(_baseLayers, null, {position: "bottomright"}).addTo(createMap);
 
 
 var measureControl = L.control.measure({
@@ -74,16 +74,16 @@ var measureControl = L.control.measure({
     secondaryLengthUnit: 'kilometers',
     localization: 'fa',
     popupOptions: { className: 'leaflet-measure-resultpopup', autoPanPadding: [10, 10] }
-}).addTo(map);
+}).addTo(createMap);
 
-map.on('measurestart', function(evt) {
+createMap.on('measurestart', function(evt) {
 });
 
-map.on('measurefinish', function(evt) {
+createMap.on('measurefinish', function(evt) {
     var points = document.getElementById('eventoutput').value = JSON.stringify(evt.points);
     $(".leaflet-control-measure").toggle(function() {
-        map.off('click', layer.getFeatureInfo, layer);
-        map.off('click', popup);
+        createMap.off('click', layer.getFeatureInfo, layer);
+        createMap.off('click', popup);
     });
 });
 
@@ -93,9 +93,9 @@ function WhatHere(e) {
 }
 
 function Zoomin(e) {
-    map.zoomIn();
+    createMap.zoomIn();
 }
 
 function Zoomout(e) {
-    map.zoomOut();
+    createMap.zoomOut();
 }

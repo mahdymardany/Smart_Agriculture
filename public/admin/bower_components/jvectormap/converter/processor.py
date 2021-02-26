@@ -27,8 +27,8 @@ class Map:
     self.paths[code] = {"path": path, "name": name}
 
   def getJSCode(self):
-    map = {"paths": self.paths, "width": self.width, "height": self.height, "insets": self.insets, "projection": self.projection}
-    return "jQuery.fn.vectorMap('addMap', '"+self.name+"_"+self.projection['type']+"',"+json.dumps(map)+');'
+    createMap = {"paths": self.paths, "width": self.width, "height": self.height, "insets": self.insets, "projection": self.projection}
+    return "jQuery.fn.vectorMap('addMap', '"+self.name+"_"+self.projection['type']+"',"+json.dumps(createMap)+');'
 
 
 class Converter:
@@ -50,7 +50,7 @@ class Converter:
 
     self.config = args
 
-    self.map = Map(args['name'], args.get('language'))
+    self.createMap = Map(args['name'], args.get('language'))
 
     if args.get('sources'):
       self.sources = args['sources']
@@ -91,7 +91,7 @@ class Converter:
       self.emulate_longitude0 = True
 
     if args.get('viewport'):
-      self.viewport = map(lambda s: float(s), args.get('viewport').split(' '))
+      self.viewport = createMap(lambda s: float(s), args.get('viewport').split(' '))
     else:
       self.viewport = False
 
@@ -102,7 +102,7 @@ class Converter:
       projString += ' +lon_0='+str(self.longitude0)
     self.spatialRef.ImportFromProj4(projString)
 
-    # handle map insets
+    # handle createMap insets
     if args.get('insets'):
       self.insets = args.get('insets')
     else:
@@ -110,14 +110,14 @@ class Converter:
 
 
   def convert(self, data_source, output_file):
-    codes = map(lambda g: g.properties[self.config['code_field']], data_source.geometries)
+    codes = createMap(lambda g: g.properties[self.config['code_field']], data_source.geometries)
     main_codes = copy.copy(codes)
-    self.map.insets = []
+    self.createMap.insets = []
     envelope = []
     for inset in self.insets:
       insetBbox = self.renderMapInset(data_source, inset['codes'], inset['left'], inset['top'], inset['width'])
       insetHeight = (insetBbox[3] - insetBbox[1]) * (inset['width'] / (insetBbox[2] - insetBbox[0]))
-      self.map.insets.append({
+      self.createMap.insets.append({
         "bbox": [{"x": insetBbox[0], "y": -insetBbox[3]}, {"x": insetBbox[2], "y": -insetBbox[1]}],
         "left": inset['left'],
         "top": inset['top'],
@@ -137,18 +137,18 @@ class Converter:
     envelope.append( shapely.geometry.box( self.left, self.top, self.left + self.width, self.top + insetHeight ) )
     mapBbox = shapely.geometry.MultiPolygon( envelope ).bounds
 
-    self.map.width = mapBbox[2] + mapBbox[0]
-    self.map.height = mapBbox[3] + mapBbox[1]
-    self.map.insets.append({
+    self.createMap.width = mapBbox[2] + mapBbox[0]
+    self.createMap.height = mapBbox[3] + mapBbox[1]
+    self.createMap.insets.append({
       "bbox": [{"x": insetBbox[0], "y": -insetBbox[3]}, {"x": insetBbox[2], "y": -insetBbox[1]}],
       "left": self.left,
       "top": self.top,
       "width": self.width,
       "height": insetHeight
     })
-    self.map.projection = {"type": self.projection, "centralMeridian": float(self.longitude0)}
+    self.createMap.projection = {"type": self.projection, "centralMeridian": float(self.longitude0)}
 
-    open(output_file, 'w').write( self.map.getJSCode() )
+    open(output_file, 'w').write( self.createMap.getJSCode() )
 
     if self.for_each is not None:
       for code in codes:
@@ -196,7 +196,7 @@ class Converter:
               path += 'l' + str( round(point[0]/scale - ring.coords[pointIndex-1][0]/scale, self.precision) )
               path += ',' + str( round(ring.coords[pointIndex-1][1]/scale - point[1]/scale, self.precision) )
           path += 'Z'
-      self.map.addPath(path, geometry.properties[self.config['code_field']], geometry.properties[self.config['name_field']])
+      self.createMap.addPath(path, geometry.properties[self.config['code_field']], geometry.properties[self.config['name_field']])
     return bbox
 
 
@@ -277,7 +277,7 @@ class DataSource:
 
   def create_grammar(self):
     root_table = SymbolTable("root",
-      map( lambda f: Bind(f['name'], GeometryProperty(f['name'])), self.fields )
+      createMap( lambda f: Bind(f['name'], GeometryProperty(f['name'])), self.fields )
     )
 
     tokens = {
@@ -502,7 +502,7 @@ class Processor:
     for rule in config['rules']:
       expression = data_source.parse_manager.parse( rule['where'] )
       geometries = filter(lambda g: expression(g.properties), data_source.geometries)
-      geometries = map(lambda g: g.geom, geometries)
+      geometries = createMap(lambda g: g.geom, geometries)
       new_geometries.append( Geometry(shapely.ops.cascaded_union( geometries ), rule['fields']) )
     data_source.fields = config['fields']
     data_source.geometries = new_geometries
@@ -521,7 +521,7 @@ class Processor:
     for geometry in data_source.geometries:
       if geometry.properties[config['on']] in data:
         geometry.properties.update( data[geometry.properties[config['on']]] )
-    field_names = map(lambda f: f['name'], data_source.fields)
+    field_names = createMap(lambda f: f['name'], data_source.fields)
     data_source.fields = data_source.fields + filter(lambda f: f['name'] not in field_names, config['fields'])
 
   def remove(self, config, data_source):
@@ -539,7 +539,7 @@ class Processor:
       geometry.geom = geometry.geom.buffer(config['distance'], config['resolution'])
 
   def simplify_adjancent_polygons(self, config, data_source):
-    simple_geometries = PolygonSimplifier( map( lambda g: g.geom, data_source.geometries ) ).simplify()
+    simple_geometries = PolygonSimplifier( createMap( lambda g: g.geom, data_source.geometries ) ).simplify()
     for i in range(len(data_source.geometries)):
       data_source.geometries[i].geom = simple_geometries[i]
 

@@ -656,7 +656,7 @@ Zone America/Boise	-7:44:49 -	LMT	1883 Nov 18 12:15:11
 
 # Indiana
 #
-# For a map of Indiana's time zone regions, see:
+# For a createMap of Indiana's time zone regions, see:
 # <a href="http://www.mccsc.edu/time.html">
 # What time is it in Indiana?
 # </a> (2006-03-01)
@@ -1103,7 +1103,7 @@ Zone America/Menominee	-5:50:27 -	LMT	1885 Sep 18 12:00
 # http://action.attavik.ca/home/justice-gn/attach/2007/gaz02part2.pdf
 
 # From Paul Eggert (2006-04-25):
-# H. David Matthews and Mary Vincent's map
+# H. David Matthews and Mary Vincent's createMap
 # <a href="http://www.canadiangeographic.ca/Magazine/SO98/geomap.asp">
 # "It's about TIME", _Canadian Geographic_ (September-October 1998)
 # </a> contains detailed boundaries for regions observing nonstandard

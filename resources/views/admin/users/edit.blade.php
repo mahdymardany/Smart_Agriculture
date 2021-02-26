@@ -19,8 +19,9 @@
                     <!-- form start -->
                     <form role="form" action="{{ route('users.update' , ['user' => $user->id]) }}" method="post">
                         @csrf
-                        {{ method_field('PATCH') }}
+                        @method('PATCH')
                         @include('admin.section.errors')
+
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="name">نام و نام خانوادگی</label>

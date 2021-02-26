@@ -27,8 +27,8 @@ class Map:
     self.paths[code] = {"path": path, "name": name}
 
   def getJSCode(self):
-    map = {"paths": self.paths, "width": self.width, "height": self.height, "insets": self.insets, "projection": self.projection}
-    return "jQuery.fn.vectorMap('addMap', '"+self.name+"_"+self.projection['type']+"_"+self.language+"',"+json.dumps(map)+');'
+    createMap = {"paths": self.paths, "width": self.width, "height": self.height, "insets": self.insets, "projection": self.projection}
+    return "jQuery.fn.vectorMap('addMap', '"+self.name+"_"+self.projection['type']+"_"+self.language+"',"+json.dumps(createMap)+');'
 
 
 class Converter:
@@ -46,7 +46,7 @@ class Converter:
     }
     args.update(config)
 
-    self.map = Map(args['name'], args.get('language'))
+    self.createMap = Map(args['name'], args.get('language'))
 
     if args.get('sources'):
       self.sources = args['sources']
@@ -85,7 +85,7 @@ class Converter:
       self.emulate_longitude0 = True
 
     if args.get('viewport'):
-      self.viewport = map(lambda s: float(s), args.get('viewport').split(' '))
+      self.viewport = createMap(lambda s: float(s), args.get('viewport').split(' '))
     else:
       self.viewport = False
 
@@ -96,7 +96,7 @@ class Converter:
       projString += ' +lon_0='+str(self.longitude0)
     self.spatialRef.ImportFromProj4(projString)
 
-    # handle map insets
+    # handle createMap insets
     if args.get('insets'):
       self.insets = args.get('insets')
     else:
@@ -171,12 +171,12 @@ class Converter:
 
     codes = self.features.keys()
     main_codes = copy.copy(codes)
-    self.map.insets = []
+    self.createMap.insets = []
     envelope = []
     for inset in self.insets:
       insetBbox = self.renderMapInset(inset['codes'], inset['left'], inset['top'], inset['width'])
       insetHeight = (insetBbox[3] - insetBbox[1]) * (inset['width'] / (insetBbox[2] - insetBbox[0]))
-      self.map.insets.append({
+      self.createMap.insets.append({
         "bbox": [{"x": insetBbox[0], "y": -insetBbox[3]}, {"x": insetBbox[2], "y": -insetBbox[1]}],
         "left": inset['left'],
         "top": inset['top'],
@@ -197,18 +197,18 @@ class Converter:
     envelope.append( shapely.geometry.box( 0, 0, self.width, insetHeight ) )
     mapBbox = shapely.geometry.MultiPolygon( envelope ).bounds
 
-    self.map.width = mapBbox[2] - mapBbox[0]
-    self.map.height = mapBbox[3] - mapBbox[1]
-    self.map.insets.append({
+    self.createMap.width = mapBbox[2] - mapBbox[0]
+    self.createMap.height = mapBbox[3] - mapBbox[1]
+    self.createMap.insets.append({
       "bbox": [{"x": insetBbox[0], "y": -insetBbox[3]}, {"x": insetBbox[2], "y": -insetBbox[1]}],
       "left": 0,
       "top": 0,
       "width": self.width,
       "height": insetHeight
     })
-    self.map.projection = {"type": self.projection, "centralMeridian": float(self.longitude0)}
+    self.createMap.projection = {"type": self.projection, "centralMeridian": float(self.longitude0)}
 
-    open(outputFile, 'w').write( self.map.getJSCode() )
+    open(outputFile, 'w').write( self.createMap.getJSCode() )
 
     if self.for_each is not None:
       for code in codes:
@@ -256,7 +256,7 @@ class Converter:
               path += 'l' + str( round(point[0]/scale - ring.coords[pointIndex-1][0]/scale, self.precision) )
               path += ',' + str( round(ring.coords[pointIndex-1][1]/scale - point[1]/scale, self.precision) )
           path += 'Z'
-      self.map.addPath(path, feature['code'], feature['name'])
+      self.createMap.addPath(path, feature['code'], feature['name'])
     return bbox
 
 

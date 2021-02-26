@@ -4,7 +4,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            لیست کاربران
+            لیست سنسور ها
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i> داشبورد</a></li>
@@ -68,6 +68,7 @@
         <!-- /.row -->
     </section>
     <!-- /.content -->
+    @include('sweet::alert')
 @endsection
 
 @section('script')
@@ -108,4 +109,10 @@
             });
         });
     </script>
+
+
+
+@endsection
+@section('css')
+    <script src="{{ asset('js/app.js') }}"></script>
 @endsection

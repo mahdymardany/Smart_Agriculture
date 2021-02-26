@@ -30,7 +30,7 @@
   <script src="../src/vml-circle-element.js"></script>
   <script src="../src/vml-image-element.js"></script>
 
-  <script src="../src/map-object.js"></script>
+  <script src="../src/createMap-object.js"></script>
   <script src="../src/region.js"></script>
   <script src="../src/marker.js"></script>
 
@@ -42,7 +42,7 @@
   <script src="../src/legend.js"></script>
   <script src="../src/data-series.js"></script>
   <script src="../src/proj.js"></script>
-  <script src="../src/map.js"></script>
+  <script src="../src/createMap.js"></script>
 
   <script src="assets/jquery-jvectormap-world-mill-en.js"></script>
   <script>
@@ -63,7 +63,7 @@
         $('#map1').vectorMap('set', 'focus', {scale: 1, x: 0.5, y: 0.5, animate: true});
       });
       $('#map1').vectorMap({
-        map: 'world_mill_en',
+        createMap: 'world_mill_en',
         panOnDrag: true,
         focusOn: {
           x: 0.5,

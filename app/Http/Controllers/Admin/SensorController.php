@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EditSensorRequest;
 use App\Http\Requests\SensorRequest;
 use App\Models\Land;
 use App\Models\Sensor;
@@ -44,6 +45,8 @@ class SensorController extends Controller
         $sensor->land_id = $request->input('land_id');
         $sensor->save();
 
+        alert()->success('سنسور با موفقیت ایجاد شد');
+
         return redirect(route('sensors.index'));
     }
 
@@ -77,11 +80,13 @@ class SensorController extends Controller
      * @param  int  $sensor
      * @return \Illuminate\Http\Response
      */
-    public function update(SensorRequest $request, Sensor $sensor)
+    public function update(EditSensorRequest $request, Sensor $sensor)
     {
         $sensor->serial = $request->input('serial');
         $sensor->land_id = $request->input('land_id');
         $sensor->save();
+
+        alert()->success('اطلاعات با موفقیت ویرایش شد');
 
         return redirect(route('sensors.index'));
     }
@@ -95,6 +100,8 @@ class SensorController extends Controller
     public function destroy(Sensor $sensor)
     {
         $sensor->delete();
+
+        alert()->success('سنسور با موفقیت حذف شد');
 
         return back();
     }

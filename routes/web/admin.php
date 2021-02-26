@@ -2,13 +2,14 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LandController;
-use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\RoleUserController;
 use App\Http\Controllers\Admin\SensorController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\RegisterController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+//    if (Auth::user()->level == 1 || Auth::user()->level == 2){
+//        return 'level is 1';
+//    }
 //    auth()->loginUsingId(1);
     return view('welcome');
 });
@@ -33,6 +37,7 @@ Route::get('/createuser', function () {
         'name' => 'a',
         'username' => 'a',
         'status' => '1',
+        'level' => '2',
         'password' => Hash::make('asdasd'),
     ]);
     return view('welcome');
@@ -51,9 +56,12 @@ Route::group(['middleware' =>['auth', 'auth.admin']] , function (){
     Route::resource('/lands' , LandController::class);
     Route::resource('/sensors',SensorController::class);
     Route::resource('/roles',RoleController::class);
-//    Route::resource('/permissions',PermissionController::class);
     Route::resource('/users-role',RoleUserController::class, ['parameters' => ['users-role' => 'user']]);
 
+//    if (Auth::user()->level == 1 || Auth::user()->level == 2){
+        Route::get('/admin/profile',[ProfileController::class,'index'])->name('admin.profile.index');
+        Route::PATCH('/admin/profile/{user}',[ProfileController::class,'update'])->name('admin.profile.update');
+//    }
 
     Route::get('/admin/chart', function (){
         return view('admin.chart.index');

@@ -13,7 +13,7 @@ import time
 format = '%.8f %.8f'
 tolerance = 0.01
 infile = '/Users/kirilllebedev/Maps/50m-admin-0-countries/ne_50m_admin_0_countries.shp'
-outfile = 'map.shp'
+outfile = 'createMap.shp'
 
 # Open the datasource to operate on.
 in_ds = ogr.Open( infile, update = 0 )
@@ -23,7 +23,7 @@ in_defn = in_layer.GetLayerDefn()
 
 # Create output file with similar information.
 shp_driver = ogr.GetDriverByName( 'ESRI Shapefile' )
-if os.path.exists('map.shp'):
+if os.path.exists('createMap.shp'):
   shp_driver.DeleteDataSource( outfile )
 shp_ds = shp_driver.CreateDataSource( outfile )
 shp_layer = shp_ds.CreateLayer( in_defn.GetName(),

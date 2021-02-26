@@ -37,7 +37,7 @@
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-success" id="btn-map">ثبت</button>
+                            <button type="submit" class="btn btn-success" id="btn-createMap">ثبت</button>
                         </div>
                     </form>
                 </div>
@@ -48,7 +48,7 @@
 @endsection
 @section('script')
     <script src="{{ asset('js/chosen.js') }}"></script>
-    <script src="{{ asset('js/map.js') }}"></script>
+    <script src="{{ asset('js/leaflet/land-create.js') }}"></script>
 
 @endsection
 @section('css')

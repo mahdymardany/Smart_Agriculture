@@ -8,7 +8,7 @@ import 'leaflet.fullscreen';
 var geojson = document.getElementById('eventoutput').value;
 var points = JSON.parse(geojson);
 
-var lat = points[1].lat, lng = points[1].lng;
+var lat = points[0].lat, lng = points[0].lng;
 let map = L.map('mapid', {
     fullscreenControl: true,
 }).setView([lat,lng], 12);

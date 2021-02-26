@@ -96,7 +96,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
 			mentions: [
 
 				{
-					feed: CKEDITOR.tools.array.map( data, function( item ) {
+					feed: CKEDITOR.tools.array.createMap( data, function( item ) {
 									return item.name;
 								} ),
 					minChars: 0

@@ -24,7 +24,6 @@
                             </button>
                             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                         </div>
-
                     </div>
 
                     <!-- /.box-header -->
@@ -39,43 +38,43 @@
                             </thead>
                             <tbody>
                             @foreach($users as $user)
-                                <tr>
-                                    <td>{{ $user->username }}</td>
-                                    <td>{{ $user->name }}</td>
-                                    <td>
+                                    <tr>
+                                        <td>{{ $user->username }}</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>
                                             <div class="btn-group btn-group-xs">
                                                 <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-primary"><i class="fa fa-fw fa-edit"></i></a>
                                                 <button class="btn btn-danger" data-userid={{$user->id}} data-toggle="modal" data-target="#delete"><i class="fa fa-fw fa-trash-o"></i></button>
                                             </div>
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                                <h4 class="modal-title text-center" id="myModalLabel">تایید حذف</h4>
-                                                            </div>
-                                                            <form action="{{route('users.destroy','test')}}" method="post">
-                                                                {{method_field('delete')}}
-                                                                {{csrf_field()}}
-                                                                <div class="modal-body">
-                                                                    <p class="text-center">
-                                                                        آیا از حذف این کاربر اطمینان دارین؟
-                                                                    </p>
-                                                                    <input type="hidden" name="user_id" id="user_id" value="">
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">خیر، منصرف شدم</button>
-                                                                    <button type="submit" class="btn btn-danger">بله، حذف شود</button>
-                                                                </div>
-                                                            </form>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            <h4 class="modal-title text-center" id="myModalLabel">تایید حذف</h4>
                                                         </div>
+                                                        <form action="{{route('users.destroy',['user' => $user->id])}}" method="post">
+                                                            {{method_field('delete')}}
+                                                            {{csrf_field()}}
+                                                            <div class="modal-body">
+                                                                <p class="text-center">
+                                                                    آیا از حذف این کاربر اطمینان دارین؟
+                                                                </p>
+                                                                <input type="hidden" name="user_id" id="user_id" value="">
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-primary" data-dismiss="modal">خیر، منصرف شدم</button>
+                                                                <button type="submit" class="btn btn-danger">بله، حذف شود</button>
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                 </div>
+                                            </div>
 
                                             <!-- /.modal -->
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
                             @endforeach
                             </tbody>
                         </table>
@@ -89,6 +88,7 @@
         <!-- /.row -->
     </section>
     <!-- /.content -->
+    @include('sweet::alert')
 @endsection
 
 
@@ -99,12 +99,12 @@
 
     <script type="text/javascript">
         $('#delete').on('show.bs.modal', function (event) {
+            console.log(event);
             var button = $(event.relatedTarget);
             var user_id = button.data('userid');
             var modal = $(this);
             modal.find('.modal-body #user_id').val(user_id);
         })
-
     </script>
     <script>
         $(document).ready(function() {
@@ -139,10 +139,18 @@
             });
         });
     </script>
+
+
 @endsection
 
 @section('css')
-{{--    <link rel="stylesheet" href="{{asset('css/sweetalert2.css')}}">--}}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
-<meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <style>
+        .swal-text{
+            text-align: right;
+        }
+    </style>
+    <script src="{{ asset('js/app.js') }}"></script>
 @endsection()

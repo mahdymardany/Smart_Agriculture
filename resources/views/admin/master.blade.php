@@ -280,7 +280,7 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">پروفایل</a>
+                                    <a href="{{ route('admin.profile.index') }}" class="btn btn-default btn-flat">پروفایل</a>
                                 </div>
                                 <div class="pull-left">
                                     <a href="{{ route('logout') }}"
@@ -361,9 +361,9 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        @can('create-land')
-                        <li><a href="{{ route('lands.create') }}"><i class="fa fa-plus"></i>ایجاد زمین</a></li>
-                        @endcan
+                        @if(Gate::allows('asdsad') || Auth::user()->level == 2)
+                            <li><a href="{{ route('lands.create') }}"><i class="fa fa-plus"></i>ایجاد زمین</a></li>
+                        @endif
                         <li><a href="{{ route('lands.index') }}"><i class="fa fa-users"></i>لیست زمین</a></li>
                     </ul>
                 </li>

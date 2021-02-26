@@ -110,7 +110,7 @@ $('select').select2({
     Select2 requires that the <code>id</code> property is used to uniquely
     identify the options that are displayed in the results list. If you use a
     property other than <code>id</code> (like <code>pk</code>) to uniquely
-    identify an option, you need to map your old property to <code>id</code>
+    identify an option, you need to createMap your old property to <code>id</code>
     before passing it to Select2.
   </p>
 
@@ -121,7 +121,7 @@ $('select').select2({
   </p>
 
 {% highlight js linenos %}
-var data = $.map(yourArrayData, function (obj) {
+var data = $.createMap(yourArrayData, function (obj) {
   obj.id = obj.id || obj.pk; // replace pk with your identifier
 
   return obj;
@@ -136,12 +136,12 @@ var data = $.map(yourArrayData, function (obj) {
   <p>
     Just like with the <code>id</code> property, Select2 requires that the text
     that should be displayed for an option is stored in the <code>text</code>
-    property. You can map this property from any existing property using the
+    property. You can createMap this property from any existing property using the
     following JavaScript.
   </p>
 
 {% highlight js linenos %}
-var data = $.map(yourArrayData, function (obj) {
+var data = $.createMap(yourArrayData, function (obj) {
   obj.text = obj.text || obj.name; // replace name with the property used for the text
 
   return obj;

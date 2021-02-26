@@ -18,17 +18,25 @@
                         @include('admin.section.errors')
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="serial">نام زمین</label>
+                                <label for="serial">شناسه سنسور</label>
                                 <input type="text" class="form-control" name="serial" id="serial" placeholder="شناسه سنسور">
                             </div>
                             <div class="form-group">
                                 <label for="land_id">زمین</label>
-                                <select class="form-control chosen-select" style="width: 100%;" name="land_id" id="land_id">
+                                <select class="form-control chosen-select" style="width: 100%;" name="land_id" id="land_id" data-placeholder="زمین را انتخاب کنید">
+                                    <option value=""></option>
                                     @foreach($lands as $land)
-                                         <option value="{{ $land->id }}">{{$land->name}}</option>
+                                         <option value="{{ $land->id }}" data-points="{{ $land->points }}" >{{$land->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="mapid">نقشه</label>
+                                <div id="mapid"></div>
+                            </div>
+                            <input type="hidden" id="eventoutput" name="points">
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer">
@@ -43,7 +51,9 @@
 @endsection
 @section('script')
     <script src="{{ asset('js/chosen.js') }}"></script>
+    <script src="{{ asset('js/leaflet/sensor-create.js') }}"></script>
 @endsection
 @section('css')
     <link rel="stylesheet" href="{{asset('css/chosen.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/map.css') }}">
 @endsection

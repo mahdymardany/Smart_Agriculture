@@ -13,7 +13,7 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">ایجاد کاربر</h3>
+                        <h3 class="box-title">ویرایش زمین : {{ $land->name }}</h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
@@ -28,7 +28,7 @@
                             </div>
                             <div class="form-group">
                                 <label>نام کاربر</label>
-                                <select class="form-control select2" style="width: 100%;" name="userid">
+                                <select class="form-control chosen-select" name="userid">
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{$user->name}}</option>
                                     @endforeach
@@ -47,14 +47,11 @@
     </section>
 @endsection
 @section('script')
-    <script src="{{ asset('js/map.js') }}"></script>
-    <script src="/admin/bower_components/select2/dist/js/select2.full.min.js"></script>
-    <script>
-        $('.select2').select2({
-            dir: "rtl",
-        })
-    </script>
+    <script src="{{ asset('js/chosen.js.js') }}"></script>
+{{--    <script src="{{ asset('js/map.js') }}"></script>--}}
+
 @endsection
 @section('css')
-    <link rel="stylesheet" href="/admin/bower_components/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="{{ asset('css/chosen.css') }}">
+    <link rel="stylesheet" href="{{asset('css/map.css')}}">
 @endsection

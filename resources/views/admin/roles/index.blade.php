@@ -7,7 +7,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i> داشبورد</a></li>
-            <li><a href="{{route('roles.index')}}">سنسور ها</a></li>
+            <li><a href="{{route('roles.index')}}">نقش ها</a></li>
         </ol>
     </section>
 
@@ -68,13 +68,13 @@
         <!-- /.row -->
     </section>
     <!-- /.content -->
+    @include('sweet::alert')
 @endsection
 
 @section('script')
     <!-- DataTables -->
     <script src="/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-
     <script>
         $(document).ready(function() {
             $('#example').DataTable({
@@ -108,4 +108,8 @@
             });
         });
     </script>
+@endsection
+
+@section('css')
+    <script src="{{ asset('js/app.js') }}"></script>
 @endsection

@@ -600,14 +600,14 @@ $.fn.select2.amd.require([
         <p>
           Select2 previously supported defining array data as an object that matched
           the signature of an AJAX response. A <code>text</code> property could be
-          specified that would map the given property to the <code>text</code>
+          specified that would createMap the given property to the <code>text</code>
           property on the individual objects. You can now do this when initializing
-          Select2 by using the following jQuery code to map the old
+          Select2 by using the following jQuery code to createMap the old
           <code>text</code> and <code>id</code> properties to the new ones.
         </p>
 
 {% highlight js linenos %}
-var data = $.map([
+var data = $.createMap([
   {
     pk: 1,
     word: 'one'
@@ -637,7 +637,7 @@ var data = $.map([
 
         <p>
           The same code that was given above can be used in the
-          <code>processResults</code> method of an AJAX call to map properties there
+          <code>processResults</code> method of an AJAX call to createMap properties there
           as well.
         </p>
 

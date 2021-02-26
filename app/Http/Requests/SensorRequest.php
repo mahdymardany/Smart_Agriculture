@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\Security;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SensorRequest extends FormRequest
@@ -24,8 +25,8 @@ class SensorRequest extends FormRequest
     public function rules()
     {
         return [
-            'serial' => 'required',
-            'land_id' => 'required',
+            'serial' => ['required', new Security(),'unique:sensors'],
+            'land_id' => ['required'],
         ];
     }
 }

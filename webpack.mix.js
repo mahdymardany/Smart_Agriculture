@@ -15,8 +15,10 @@ mix
     .js('resources/js/app.js', 'public/js')
     .js('resources/js/highcharts.js', 'public/js')
     .js('resources/js/chosen.js', 'public/js')
-    .js('resources/js/map.js', 'public/js')
-    .js('resources/js/show-map.js', 'public/js')
+    .js('resources/js/leaflet/land-create.js', 'public/js/leaflet')
+    .js('resources/js/leaflet/land-show.js', 'public/js/leaflet')
+    .js('resources/js/leaflet/sensor-create.js', 'public/js/leaflet')
+    .js('resources/js/leaflet/sensor-edit.js', 'public/js/leaflet')
     .sass('resources/sass/app.scss', 'public/css')
     .postCss('resources/css/chosen.css', 'public/css')
     .postCss('resources/css/map.css', 'public/css');

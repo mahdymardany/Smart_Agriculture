@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RoleRequest;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
@@ -37,12 +38,14 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,role $role)
+    public function store(RoleRequest $request,role $role)
     {
         $role->name = $request->input('name');
-        //return $request;
         $role->save();
         $role->permissions()->sync($request->input('permissions'));
+
+        alert()->success('نقش با موفقیت ایجاد شد');
+
         return redirect(route('roles.index'));
     }
     /**
@@ -75,9 +78,10 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Role $role)
+    public function update(RoleRequest $request,Role $role)
     {
         $role->permissions()->sync($request->input('permissions'));
+        alert()->success('نقش با موفقیت ویرایش شد');
         return redirect(route('roles.index'));
     }
 
@@ -90,7 +94,7 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
-
+        alert()->success('نقش با موفقیت حذف شد');
         return back();
     }
 }

@@ -46,13 +46,13 @@ Within the download you'll find the following directories and files, logically g
 bootstrap/
 ├── css/
 │   ├── bootstrap.css
-│   ├── bootstrap.css.map
+│   ├── bootstrap.css.createMap
 │   ├── bootstrap.min.css
-│   ├── bootstrap.min.css.map
+│   ├── bootstrap.min.css.createMap
 │   ├── bootstrap-theme.css
-│   ├── bootstrap-theme.css.map
+│   ├── bootstrap-theme.css.createMap
 │   ├── bootstrap-theme.min.css
-│   └── bootstrap-theme.min.css.map
+│   └── bootstrap-theme.min.css.createMap
 ├── js/
 │   ├── bootstrap.js
 │   └── bootstrap.min.js
@@ -64,7 +64,7 @@ bootstrap/
     └── glyphicons-halflings-regular.woff2
 ```
 
-We provide compiled CSS and JS (`bootstrap.*`), as well as compiled and minified CSS and JS (`bootstrap.min.*`). CSS [source maps](https://developer.chrome.com/devtools/docs/css-preprocessors) (`bootstrap.*.map`) are available for use with certain browsers' developer tools. Fonts from Glyphicons are included, as is the optional Bootstrap theme.
+We provide compiled CSS and JS (`bootstrap.*`), as well as compiled and minified CSS and JS (`bootstrap.min.*`). CSS [source maps](https://developer.chrome.com/devtools/docs/css-preprocessors) (`bootstrap.*.createMap`) are available for use with certain browsers' developer tools. Fonts from Glyphicons are included, as is the optional Bootstrap theme.
 
 
 ## Bugs and feature requests

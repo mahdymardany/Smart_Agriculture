@@ -2,6 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\Security;
+use App\Rules\Unspace;
+use App\Rules\Username;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserRequest extends FormRequest
@@ -24,8 +27,8 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required'],
-            'username' => ['required', 'regex:/^\S*$/u', 'unique:users', 'string', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
+            'name' => ['required',new Security()],
+            'username' => ['required', 'unique:users', 'string', new Username()],
             'password' => ['required', 'min:6'],
             'level' => ['required'],
             'password_confirmation' => ['required_with:password', 'same:password'],
@@ -38,7 +41,6 @@ class UserRequest extends FormRequest
 //            'name.required' => 'نام و نام خانوادگی باید وارد شود',
 //            'username.required' => 'نام کاربری باید وارد شود',
 //            'password_confirmation.same' => 'رمز های عبور یکسان نمباشند'
-        'username.regex' => 'نام کاربری معتبر نیست'
         ];
     }
 }

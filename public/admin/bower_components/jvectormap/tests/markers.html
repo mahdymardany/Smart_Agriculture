@@ -51,7 +51,7 @@
   <script src="../src/vml-circle-element.js"></script>
   <script src="../src/vml-image-element.js"></script>
 
-  <script src="../src/map-object.js"></script>
+  <script src="../src/createMap-object.js"></script>
   <script src="../src/region.js"></script>
   <script src="../src/marker.js"></script>
 
@@ -63,7 +63,7 @@
   <script src="../src/legend.js"></script>
   <script src="../src/data-series.js"></script>
   <script src="../src/proj.js"></script>
-  <script src="../src/map.js"></script>
+  <script src="../src/createMap.js"></script>
 
   <script src="assets/jquery-jvectormap-us-aea-en.js"></script>
   <script>
@@ -83,9 +83,9 @@
             '5': 'factory'
           };
 
-      var map = new jvm.Map({
-        container: $('.map'),
-        map: 'us_aea_en',
+      var createMap = new jvm.Map({
+        container: $('.createMap'),
+        createMap: 'us_aea_en',
         labels: {
           regions: {
             render: function(code){
@@ -221,7 +221,7 @@
           tip.html(tip.html()+' (modified)');
         },
         onRegionOver: function(event, code){
-          console.log('region-over', code, map.getRegionName(code));
+          console.log('region-over', code, createMap.getRegionName(code));
         },
         onRegionOut: function(event, code){
           console.log('region-out', code);
@@ -247,43 +247,43 @@
         var index = $(this).closest('li').attr('data-marker-index');
 
         if ($(this).prop('checked')) {
-          map.addMarker( index, markers[index], [values1[index], values2[index], values3[index]] );
+          createMap.addMarker( index, markers[index], [values1[index], values2[index], values3[index]] );
         } else {
-          map.removeMarkers( [index] );
+          createMap.removeMarkers( [index] );
         }
       });
       $('.button-add-all').click(function(){
         $('.list-markers :checkbox').prop('checked', true);
-        map.addMarkers(markers, [values1, values2, values3]);
+        createMap.addMarkers(markers, [values1, values2, values3]);
       });
       $('.button-remove-all').click(function(){
         $('.list-markers :checkbox').prop('checked', false);
-        map.removeAllMarkers();
+        createMap.removeAllMarkers();
       });
       $('.button-clear-selected-regions').click(function(){
-        map.clearSelectedRegions();
+        createMap.clearSelectedRegions();
       });
       $('.button-clear-selected-markers').click(function(){
-        map.clearSelectedMarkers();
+        createMap.clearSelectedMarkers();
       });
-      $('.button-remove-map').click(function(){
-        map.remove();
+      $('.button-remove-createMap').click(function(){
+        createMap.remove();
       });
       $('.button-change-values').click(function(){
-        map.series.regions[1].clear();
-        map.series.regions[1].setValues({
+        createMap.series.regions[1].clear();
+        createMap.series.regions[1].setValues({
           "US-TX": "black",
           "US-CA": "black"
         });
       });
-      $('.button-reset-map').click(function(){
-        map.reset();
+      $('.button-reset-createMap').click(function(){
+        createMap.reset();
       });
     });
   </script>
 </head>
 <body>
-  <div class="map" style="width: 800px; height: 500px"></div>
+  <div class="createMap" style="width: 800px; height: 500px"></div>
   <ul class="list-markers">
     <li data-marker-index="0"><label><input checked type="checkbox"/> Marker 1</label></li>
     <li data-marker-index="1"><label><input checked type="checkbox"/> Marker 2</label></li>
@@ -298,10 +298,10 @@
   <input type="button" value="Clear selected regions" class="button-clear-selected-regions"/>
   <input type="button" value="Clear selected markers" class="button-clear-selected-markers"/>
   &nbsp;&nbsp;&nbsp;
-  <input type="button" value="Remove map" class="button-remove-map"/>
+  <input type="button" value="Remove createMap" class="button-remove-createMap"/>
   &nbsp;&nbsp;&nbsp;
   <input type="button" value="Change values" class="button-change-values"/>
   &nbsp;&nbsp;&nbsp;
-  <input type="button" value="Reset map" class="button-reset-map"/>
+  <input type="button" value="Reset createMap" class="button-reset-createMap"/>
 </body>
 </html>

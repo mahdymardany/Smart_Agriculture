@@ -28,11 +28,18 @@
                             </div>
                             <div class="form-group">
                                 <label>نام کاربر</label>
-                                <select class="form-control chosen-select" style="width: 100%;" name="land_id">
+                                <select class="form-control chosen-select" style="width: 100%;" name="land_id" id="land_id">
                                     @foreach($lands as $land)
-                                        <option value="{{ $land->id }}" {{ in_array($land->id , $sensor->land()->pluck('id')->toArray()) ? 'selected' : '' }}>{{$land->name}}</option>
+                                        <option value="{{ $land->id }}" {{ in_array($land->id , $sensor->land()->pluck('id')->toArray()) ? 'selected' : '' }} data-points="{{ $land->points }}" >{{$land->name}}</option>
                                     @endforeach
+                                        <input type="hidden" value="{{ $sensor->land->points }}" id="points">
                                 </select>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="mapid">نقشه</label>
+                                <div id="mapid"></div>
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -48,7 +55,9 @@
 @endsection
 @section('script')
     <script src="{{ asset('js/chosen.js') }}"></script>
-@endsection()
+    <script src="{{ asset('js/leaflet/sensor-edit.js') }}"></script>
+@endsection
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/chosen.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/map.css') }}">
 @endsection
