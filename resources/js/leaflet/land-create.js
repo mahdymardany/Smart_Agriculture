@@ -4,7 +4,7 @@ import 'leaflet-measure/dist/leaflet-measure.fa'
 import 'leaflet-contextmenu';
 import 'leaflet.fullscreen';
 
-let createMap = L.map('mapid', {
+let map = L.map('mapid', {
     contextmenu: true,
     contextmenuWidth: 140,
     contextmenuItems: [{
@@ -31,23 +31,18 @@ let createMap = L.map('mapid', {
     //     position: 'bottomleft'
     // }
 }).setView([36.29813761025315, 59.60592779759344], 12);
-createMap.attributionControl.setPrefix('<a href="http://blog.thematicmapping.org/">Raya</a>');
-
-L.tileLayer('https://tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png').addTo(createMap);
-
+map.attributionControl.setPrefix('<a href="http://blog.thematicmapping.org/">ناهید آسمان گستران</a>');
+L.tileLayer('https://tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png').addTo(map);
 var Defaultmap = L.tileLayer('https://tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png', {
     maxZoom: 17,
 });
-
 var OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
     maxZoom: 17,
 });
-
 var Thunderforest_SpinalMap = L.tileLayer('https://{s}.tile.thunderforest.com/spinal-map/{z}/{x}/{y}.png?apikey={apikey}', {
     apikey: '<your apikey>',
     maxZoom: 22
 });
-
 var GeoportailFrance_orthos = L.tileLayer('https://wxs.ign.fr/{apikey}/geoportail/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE={style}&TILEMATRIXSET=PM&FORMAT={format}&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}', {
     bounds: [[-75, -180], [81, 180]],
     minZoom: 2,
@@ -56,35 +51,58 @@ var GeoportailFrance_orthos = L.tileLayer('https://wxs.ign.fr/{apikey}/geoportai
     format: 'image/jpeg',
     style: 'normal'
 });
-
 var _baseLayers = {
     "پیش فرض": Defaultmap,
     "OpenTopoMap": OpenTopoMap,
     "Thunderforest_SpinalMap": Thunderforest_SpinalMap,
     "GeoportailFrance_orthos": GeoportailFrance_orthos
 };
-
-L.control.layers(_baseLayers, null, {position: "bottomright"}).addTo(createMap);
-
-
+L.control.layers(_baseLayers, null, {position: "bottomright"}).addTo(map);
 var measureControl = L.control.measure({
     activeColor: '#db4a29',
     completedColor: '#9b2d14',
     primaryLengthUnit: 'meters',
     secondaryLengthUnit: 'kilometers',
     localization: 'fa',
-    popupOptions: { className: 'leaflet-measure-resultpopup', autoPanPadding: [10, 10] }
-}).addTo(createMap);
+    popupOptions: {className: 'leaflet-measure-resultpopup', autoPanPadding: [10, 10]}
+}).addTo(map);
 
-createMap.on('measurestart', function(evt) {
+$(".leaflet-control-measure").hover(
+    function () {
+        if (renderMeasure()) {
+            $(".js-startprompt").hide();
+            $(".leaflet-control-measure").append(
+                "<p class='text-center p-2 h6' id='fullLand'><i class='fa fa-exclamation'></i>تنها یک مزرعه می توانید ثبت کنید</p>"
+            );
+        } else {
+            if (!$('#eventoutput').value) {
+                console.log('asdasd');
+                $(".js-startprompt").show();
+            }
+        }
+    },
+    function () {
+        if ($("#fullLand")) {
+            $("#fullLand").remove();
+        }
+    }
+);
+
+const renderMeasure = () => {
+    let measures = [];
+    map.eachLayer(function (Layer) {
+        if (Layer instanceof L.Path) {
+            measures.push(Layer._latlngs);
+        }
+    });
+    return measures.length;
+};
+
+map.on('measurestart', function () {
 });
 
-createMap.on('measurefinish', function(evt) {
-    var points = document.getElementById('eventoutput').value = JSON.stringify(evt.points);
-    $(".leaflet-control-measure").toggle(function() {
-        createMap.off('click', layer.getFeatureInfo, layer);
-        createMap.off('click', popup);
-    });
+map.on('measurefinish', function (evt) {
+    document.getElementById('eventoutput').value = JSON.stringify(evt.points);
 });
 
 
@@ -93,9 +111,9 @@ function WhatHere(e) {
 }
 
 function Zoomin(e) {
-    createMap.zoomIn();
+    map.zoomIn();
 }
 
 function Zoomout(e) {
-    createMap.zoomOut();
+    map.zoomOut();
 }

@@ -6,6 +6,7 @@
     "/js/chosen.js": "/js/chosen.js",
     "/js/highcharts.js": "/js/highcharts.js",
     "/js/leaflet/land-create.js": "/js/leaflet/land-create.js",
+    "/js/leaflet/land-edit.js": "/js/leaflet/land-edit.js",
     "/js/leaflet/land-show.js": "/js/leaflet/land-show.js",
     "/js/leaflet/sensor-create.js": "/js/leaflet/sensor-create.js",
     "/js/leaflet/sensor-edit.js": "/js/leaflet/sensor-edit.js"

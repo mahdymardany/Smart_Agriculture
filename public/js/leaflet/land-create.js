@@ -15033,7 +15033,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var createMap = leaflet__WEBPACK_IMPORTED_MODULE_0___default.a.map('mapid', {
+var map = leaflet__WEBPACK_IMPORTED_MODULE_0___default.a.map('mapid', {
   contextmenu: true,
   contextmenuWidth: 140,
   contextmenuItems: [{
@@ -15056,8 +15056,8 @@ var createMap = leaflet__WEBPACK_IMPORTED_MODULE_0___default.a.map('mapid', {
   // }
 
 }).setView([36.29813761025315, 59.60592779759344], 12);
-createMap.attributionControl.setPrefix('<a href="http://blog.thematicmapping.org/">Raya</a>');
-leaflet__WEBPACK_IMPORTED_MODULE_0___default.a.tileLayer('https://tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png').addTo(createMap);
+map.attributionControl.setPrefix('<a href="http://blog.thematicmapping.org/">ناهید آسمان گستران</a>');
+leaflet__WEBPACK_IMPORTED_MODULE_0___default.a.tileLayer('https://tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png').addTo(map);
 var Defaultmap = leaflet__WEBPACK_IMPORTED_MODULE_0___default.a.tileLayer('https://tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png', {
   maxZoom: 17
 });
@@ -15084,7 +15084,7 @@ var _baseLayers = {
 };
 leaflet__WEBPACK_IMPORTED_MODULE_0___default.a.control.layers(_baseLayers, null, {
   position: "bottomright"
-}).addTo(createMap);
+}).addTo(map);
 var measureControl = leaflet__WEBPACK_IMPORTED_MODULE_0___default.a.control.measure({
   activeColor: '#db4a29',
   completedColor: '#9b2d14',
@@ -15095,14 +15095,36 @@ var measureControl = leaflet__WEBPACK_IMPORTED_MODULE_0___default.a.control.meas
     className: 'leaflet-measure-resultpopup',
     autoPanPadding: [10, 10]
   }
-}).addTo(createMap);
-createMap.on('measurestart', function (evt) {});
-createMap.on('measurefinish', function (evt) {
-  var points = document.getElementById('eventoutput').value = JSON.stringify(evt.points);
-  $(".leaflet-control-measure").toggle(function () {
-    createMap.off('click', layer.getFeatureInfo, layer);
-    createMap.off('click', popup);
+}).addTo(map);
+$(".leaflet-control-measure").hover(function () {
+  if (renderMeasure()) {
+    $(".js-startprompt").hide();
+    $(".leaflet-control-measure").append("<p class='text-center p-2 h6' id='fullLand'><i class='fa fa-exclamation'></i>تنها یک مزرعه می توانید ثبت کنید</p>");
+  } else {
+    if (!$('#eventoutput').value) {
+      console.log('asdasd');
+      $(".js-startprompt").show();
+    }
+  }
+}, function () {
+  if ($("#fullLand")) {
+    $("#fullLand").remove();
+  }
+});
+
+var renderMeasure = function renderMeasure() {
+  var measures = [];
+  map.eachLayer(function (Layer) {
+    if (Layer instanceof leaflet__WEBPACK_IMPORTED_MODULE_0___default.a.Path) {
+      measures.push(Layer._latlngs);
+    }
   });
+  return measures.length;
+};
+
+map.on('measurestart', function () {});
+map.on('measurefinish', function (evt) {
+  document.getElementById('eventoutput').value = JSON.stringify(evt.points);
 });
 
 function WhatHere(e) {
@@ -15110,11 +15132,11 @@ function WhatHere(e) {
 }
 
 function Zoomin(e) {
-  createMap.zoomIn();
+  map.zoomIn();
 }
 
 function Zoomout(e) {
-  createMap.zoomOut();
+  map.zoomOut();
 }
 
 /***/ }),

@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\Security;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreteLandRequest extends FormRequest
+class LandRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +25,16 @@ class CreteLandRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>['bail','required','min:4'],
-            'user_id'=>['required']
+            'name'=>['required','min:3',new Security()],
+            'user_id'=>['required', new Security()],
+            'points'=>['required']
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'points.required' => 'نقشه باید ترسیم شود',
         ];
     }
 }

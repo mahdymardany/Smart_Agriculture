@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -14429,7 +14429,7 @@ __webpack_require__.r(__webpack_exports__);
 var map = leaflet__WEBPACK_IMPORTED_MODULE_0___default.a.map('mapid', {
   fullscreenControl: true
 }).setView([33.093382, 52.811137], 5);
-map.attributionControl.setPrefix('<a href="http://blog.thematicmapping.org/">Raya</a>');
+map.attributionControl.setPrefix('<a href="http://blog.thematicmapping.org/">ناهید آسمان گستران</a>');
 leaflet__WEBPACK_IMPORTED_MODULE_0___default.a.tileLayer('https://tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png').addTo(map);
 var shipLayer = leaflet__WEBPACK_IMPORTED_MODULE_0___default.a.layerGroup();
 map.addLayer(shipLayer);
@@ -14450,7 +14450,7 @@ $("#land_id").change(function () {
 
 /***/ }),
 
-/***/ 6:
+/***/ 7:
 /*!***************************************************!*\
   !*** multi ./resources/js/leaflet/sensor-edit.js ***!
   \***************************************************/

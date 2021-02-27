@@ -13,7 +13,7 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">ویرایش زمین : {{ $land->name }}</h3>
+                        <h3 class="box-title">ویرایش زمین</h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
@@ -28,11 +28,18 @@
                             </div>
                             <div class="form-group">
                                 <label>نام کاربر</label>
-                                <select class="form-control chosen-select" name="userid">
+                                <select class="form-control chosen-select" style="width: 100%;" name="user_id">
                                     @foreach($users as $user)
                                         <option value="{{ $user->id }}">{{$user->name}}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label for="mapid">نقشه</label>
+                                    <div id="mapid"></div>
+                                </div>
+                                <input type="hidden" id="eventoutput" name="points" value="{{ $land->points }}">
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -47,11 +54,10 @@
     </section>
 @endsection
 @section('script')
-    <script src="{{ asset('js/chosen.js.js') }}"></script>
-{{--    <script src="{{ asset('js/map.js') }}"></script>--}}
-
+    <script src="{{ asset('js/chosen.js') }}"></script>
+    <script src="{{ asset('js/leaflet/land-edit.js') }}"></script>
 @endsection
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/chosen.css') }}">
     <link rel="stylesheet" href="{{asset('css/map.css')}}">
+    <link rel="stylesheet" href="{{asset('css/chosen.css')}}">
 @endsection

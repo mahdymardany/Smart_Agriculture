@@ -27,7 +27,7 @@ class EditSensorRequest extends FormRequest
     {
         return [
             'serial' => ['required', new Security(),Rule::unique('sensors')->ignore($this->sensor->id)],
-            'land_id' => ['required'],
+            'land_id' => ['required', new Security()],
         ];
     }
 }

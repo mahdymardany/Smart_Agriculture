@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateSensorRequest;
 use App\Http\Requests\EditSensorRequest;
-use App\Http\Requests\SensorRequest;
 use App\Models\Land;
 use App\Models\Sensor;
 use Illuminate\Http\Request;
@@ -39,7 +39,7 @@ class SensorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SensorRequest $request, Sensor $sensor)
+    public function store(CreateSensorRequest $request, Sensor $sensor)
     {
         $sensor->serial = $request->input('serial');
         $sensor->land_id = $request->input('land_id');

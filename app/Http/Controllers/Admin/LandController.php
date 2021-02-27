@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreteLandRequest;
+use App\Http\Requests\LandRequest;
 use Illuminate\Http\Request;
 use App\Models\Land;
 use App\Models\User;
@@ -42,25 +42,28 @@ class LandController extends Controller
         }
         abort(401);
     }
+
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param LandRequest $request
+     * @param Land $land
      * @return \Illuminate\Http\Response
      */
-    public function store(CreteLandRequest $request,Land $land)
+    public function store(LandRequest $request,Land $land)
     {
         $land->name = $request->input('name');
         $land->user_id = $request->input('user_id');
         $land->points = $request->input('points');
         $land->save();
+        alert()->success('زمین با موفقیت ثبت شد', 'Optional Title');
         return redirect(route('lands.index'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Land $land
      * @return \Illuminate\Http\Response
      */
     public function show(Land $land)
@@ -71,35 +74,38 @@ class LandController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Land $land
      * @return \Illuminate\Http\Response
      */
     public function edit(Land $land)
     {
-        $users=User::all();
+        $users = User::all();
         return view('admin.lands.edit', compact(['land','users']));
-
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param LandRequest $request
+     * @param Land $land
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Land $land)
+    public function update(LandRequest $request, Land $land)
     {
-        $land->user_id = $request->input('userid');
-        $land->update($request->all());
+        $land->name = $request->input('name');
+        $land->user_id = $request->input('user_id');
+        $land->points = $request->input('points');
+        $land->save();
+        alert()->success('زمین با موفقیت ویرایش شد', 'Optional Title');
         return redirect(route('lands.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Land $land
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Land $land)
     {
@@ -107,6 +113,7 @@ class LandController extends Controller
         foreach ($land->sensors as $sensor){
             $sensor->delete();
         }
+        alert()->success('زمین با موفقیت حذف شد');
         return redirect(route('lands.index'));
     }
 }
