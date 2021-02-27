@@ -69,7 +69,6 @@ Route::group(['middleware' =>['auth', 'auth.admin']] , function (){
 });
 
 Route::post('/user_register',[RegisterController::class, 'store'])->name('user.register');
-//change 666
 
 
 

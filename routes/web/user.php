@@ -35,6 +35,6 @@ Route::group(['middleware' => ['auth', 'auth.user']] , function (){
     Route::PATCH('/user/profile/{user}', [ProfileController::class, 'update'])->name('user.profile.update');
     Route::get('/user/sensor', [SensorController::class, 'index'])->name('user.sensor');
 });
-
+//saeed
 
 
